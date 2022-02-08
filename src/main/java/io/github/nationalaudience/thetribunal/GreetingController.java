@@ -28,7 +28,7 @@ public class GreetingController {
 
     @GetMapping("/colors")
     public String iterateColors(Model model){
-        List<String> colors = Arrays.asList("Red", "Green", "Blue");
+        var colors = Arrays.asList("Red", "Green", "Blue");
         model.addAttribute("colors",colors);
 
         return "colors_template";
@@ -36,7 +36,7 @@ public class GreetingController {
 
     @GetMapping("/objects")
     public String iterateObjects(Model model){
-        List<Person> objects = new ArrayList<Person>();
+        var objects = new ArrayList<>();
         objects.add(new Person("Pepe", "Jimenez"));
         objects.add(new Person("Javier", "Mundial"));
         objects.add(new Person("Rafa", "Local"));
