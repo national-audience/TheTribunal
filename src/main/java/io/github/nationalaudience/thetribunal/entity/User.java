@@ -1,15 +1,21 @@
 package io.github.nationalaudience.thetribunal.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class User {
+@Table(name = "user")
+public class User implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @Column(name = "username", unique = true)
     private String username;
     private String passwordHash;
 
@@ -22,6 +28,31 @@ public class User {
 
     private boolean admin;
 
+    @ManyToMany
+    private List<Studio> studiosFollow;
+
+    @JoinTable(name = "follower_user",
+            joinColumns = {
+                    @JoinColumn(
+                            name = "follower",
+                            referencedColumnName = "id",
+                            nullable = false
+                    )},
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = "followed",
+                            referencedColumnName = "id",
+                            nullable = false
+                    )})
+    @ManyToMany
+    private List<User> usersFollow;
+
+    @ManyToMany(mappedBy = "usersFollow")
+    private List<User> followedByUsers;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews;
+
     public User() {
     }
 
@@ -31,7 +62,11 @@ public class User {
                 String description,
                 boolean darkMode,
                 String language,
-                boolean admin) {
+                boolean admin,
+                List<Studio> studiosFollow,
+                List<User> usersFollow,
+                List<User> followedByUsers,
+                List<Review> reviews) {
         this.username = username;
         this.passwordHash = passwordHash;
         this.name = name;
@@ -39,6 +74,10 @@ public class User {
         this.darkMode = darkMode;
         this.language = language;
         this.admin = admin;
+        this.studiosFollow = studiosFollow;
+        this.usersFollow = usersFollow;
+        this.followedByUsers = followedByUsers;
+        this.reviews = reviews;
     }
 
     public String getUsername() {
@@ -97,24 +136,69 @@ public class User {
         this.admin = admin;
     }
 
+    public List<Studio> getStudiosFollow() {
+        return studiosFollow;
+    }
+
+    public void setStudiosFollow(List<Studio> studiosFollow) {
+        this.studiosFollow = studiosFollow;
+    }
+
+    public List<User> getFollowedByUsers() {
+        return followedByUsers;
+    }
+
+    public void setFollowedByUsers(List<User> followedByUsers) {
+        this.followedByUsers = followedByUsers;
+    }
+
+    public List<User> getUsersFollow() {
+        return usersFollow;
+    }
+
+    public void setUsersFollow(List<User> usersFollow) {
+        this.usersFollow = usersFollow;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return username.equals(user.username);
+        return id == user.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username);
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "username='" + username + '\'' +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", passwordHash='" + passwordHash + '\'' +
                 ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", darkMode=" + darkMode +
+                ", language='" + language + '\'' +
+                ", admin=" + admin +
+                ", studiosFollow=" + studiosFollow +
+                ", usersFollow=" + usersFollow +
+                ", followedByUsers=" + followedByUsers +
                 '}';
     }
 }
