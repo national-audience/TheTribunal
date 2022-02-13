@@ -35,8 +35,8 @@ Users and guests can see the ratings of a user and the average scores of a game 
 
 - **User:** defines an user's account. Contains the username, the password's hash, the name and information about the user and the user's configuration. It also defines whether a user is an admin.
 - **Studio:** defines a game studio. Contains the name of the studio, a small description about them, the amount of employees and the location of their headquarters. A studio can have worked in several **games**.
-- **Game**: defines a studio's product. Contains the name, a small description and the studio that has created it. A game can have zero or several **reviews**.
-- **Review**: defines a game's review. Contains the game, the user that created the review, the score and an optional comment.
+- **Game**: defines a studio's product. Contains the name, a small description, the studio that has created it and the release date. A game can have zero or several **reviews**.
+- **Review**: defines a game's review. Contains the game, the user that created the review, the review date, the score and an optional comment.
 - **UsersFollow**: defines an user's follow. It is defined by the following user and the followed user.
 - **StudioFollow**: defines a studio's follow. It is defined by the following user and the followed studio.
 
