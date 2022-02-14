@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{> snippet/header}}
+{{#hasGames}}
+{{> snippet/search/games}}
+{{/hasGames}}
+{{#hasStudios}}
+{{> snippet/search/studios}}
+{{/hasStudios}}
+{{#hasUsers}}
+{{> snippet/search/users}}
+{{/hasUsers}}
+</body>
+</html>
