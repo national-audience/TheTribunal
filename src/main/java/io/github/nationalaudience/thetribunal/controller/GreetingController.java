@@ -1,5 +1,6 @@
-package io.github.nationalaudience.thetribunal;
+package io.github.nationalaudience.thetribunal.controller;
 
+import io.github.nationalaudience.thetribunal.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
