@@ -1,13 +1,15 @@
 <form action="search">
     Search:
     <label>
-        <select id="searchType" name="searchType">
-            <option value="games">Games</option>
-            <option value="studios">Studios</option>
-            <option value="users">Users</option>
-            <option value="all">All</option>
+        <select id="type" name="type">
+            <option value="all" {{#allSelected}}selected{{/allSelected}}>All</option>
+            <option value="games" {{#gamesSelected}}selected{{/gamesSelected}}>Games</option>
+            <option value="studios" {{#studiosSelected}}selected{{/studiosSelected}}>Studios</option>
+            <option value="users" {{#usersSelected}}selected{{/usersSelected}}>Users</option>
         </select>
-        <input type='text' name='query'/>
+    </label>
+    <label>
+        <input type='text' name='query' value="{{lastSearchQuery}}">
     </label>
     <input type='submit' value='Send'/>
 </form>

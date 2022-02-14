@@ -1,5 +1,6 @@
 package io.github.nationalaudience.thetribunal.controller;
 
+import io.github.nationalaudience.thetribunal.constant.SearchType;
 import io.github.nationalaudience.thetribunal.repository.GameRepository;
 import io.github.nationalaudience.thetribunal.repository.StudioRepository;
 import io.github.nationalaudience.thetribunal.repository.UserRepository;
@@ -8,9 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Arrays;
+import javax.servlet.http.HttpSession;
 import java.util.Collections;
-import java.util.Optional;
+
+import static io.github.nationalaudience.thetribunal.constant.SearchStaticValues.*;
 
 @Controller
 public class SearchController {
@@ -25,13 +27,26 @@ public class SearchController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/search")
+    @GetMapping(END_POINT_SEARCH)
     public String searchGame(
             Model model,
-            @RequestParam("searchType") String type,
-            @RequestParam("query") String query
+            HttpSession session,
+            @RequestParam(PARAMETER_SEARCH_TYPE) String type,
+            @RequestParam(PARAMETER_SEARCH_QUERY) String query
     ) {
         var searchType = SearchType.getByName(type).orElse(SearchType.ALL);
+
+        // Override advice attributes.
+        model.addAttribute(CACHE_LAST_SEARCH_TYPE, searchType);
+        model.addAttribute(CACHE_LAST_SEARCH_QUERY, query);
+        model.addAttribute(CACHE_ALL_SELECTED, searchType == SearchType.ALL);
+        model.addAttribute(CACHE_GAMES_SELECTED, searchType == SearchType.GAMES);
+        model.addAttribute(CACHE_STUDIOS_SELECTED, searchType == SearchType.STUDIOS);
+        model.addAttribute(CACHE_USERS_SELECTED, searchType == SearchType.USERS);
+
+
+        session.setAttribute(CACHE_LAST_SEARCH_TYPE, searchType);
+        session.setAttribute(CACHE_LAST_SEARCH_QUERY, query);
 
         var games = searchType.mustSearchGames()
                 ? gameRepository.findByNameContainingIgnoreCase(query) : Collections.emptyList();
@@ -40,49 +55,13 @@ public class SearchController {
         var users = searchType.mustSearchUsers()
                 ? userRepository.findByNameContainingIgnoreCase(query) : Collections.emptyList();
 
-        model.addAttribute("games", games);
-        model.addAttribute("hasGames", !games.isEmpty());
-        model.addAttribute("studios", studios);
-        model.addAttribute("hasStudios", !studios.isEmpty());
-        model.addAttribute("users", users);
-        model.addAttribute("hasUsers", !users.isEmpty());
-        return "search/search_template";
-    }
-
-
-    private enum SearchType {
-
-        ALL(true, true, true),
-        GAMES(true, false, false),
-        STUDIOS(false, true, false),
-        USERS(false, false, true);
-
-        private final boolean searchGames;
-        private final boolean searchStudios;
-        private final boolean searchUsers;
-
-        SearchType(boolean searchGames, boolean searchStudios, boolean searchUsers) {
-            this.searchGames = searchGames;
-            this.searchStudios = searchStudios;
-            this.searchUsers = searchUsers;
-        }
-
-        public boolean mustSearchGames() {
-            return searchGames;
-        }
-
-        public boolean mustSearchStudios() {
-            return searchStudios;
-        }
-
-        public boolean mustSearchUsers() {
-            return searchUsers;
-        }
-
-
-        public static Optional<SearchType> getByName(String name) {
-            return Arrays.stream(values()).filter(it -> it.name().equalsIgnoreCase(name)).findAny();
-        }
+        model.addAttribute(ATTRIBUTE_GAMES, games);
+        model.addAttribute(ATTRIBUTE_HAS_GAMES, !games.isEmpty());
+        model.addAttribute(ATTRIBUTE_STUDIOS, studios);
+        model.addAttribute(ATTRIBUTE_HAS_STUDIOS, !studios.isEmpty());
+        model.addAttribute(ATTRIBUTE_USERS, users);
+        model.addAttribute(ATTRIBUTE_HAS_USERS, !users.isEmpty());
+        return TEMPLATE_SEARCH;
     }
 
 }
