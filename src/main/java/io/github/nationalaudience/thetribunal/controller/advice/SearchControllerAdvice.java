@@ -19,6 +19,11 @@ public class SearchControllerAdvice {
     }
 
     @ModelAttribute(CACHE_LAST_SEARCH_TYPE)
+    private String lastSearchType(HttpSession session) {
+        return String.valueOf(session.getAttribute(CACHE_LAST_SEARCH_TYPE));
+    }
+
+    @ModelAttribute(CACHE_ALL_SELECTED)
     private boolean isAllSelected(HttpSession session) {
         return SearchType.ALL.equals(session.getAttribute(CACHE_LAST_SEARCH_TYPE));
     }
