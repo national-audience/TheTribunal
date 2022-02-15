@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface StudioRepository extends JpaRepository<Studio, Long> {
 
-    List<Studio> findByName(String name);
+    List<Studio> findByNameContainingIgnoreCase(String name);
 
 
 }

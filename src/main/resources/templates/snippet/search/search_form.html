@@ -1,0 +1,15 @@
+<form action="search">
+    Search:
+    <label>
+        <select id="type" name="type">
+            <option value="all" {{#allSelected}}selected{{/allSelected}}>All</option>
+            <option value="games" {{#gamesSelected}}selected{{/gamesSelected}}>Games</option>
+            <option value="studios" {{#studiosSelected}}selected{{/studiosSelected}}>Studios</option>
+            <option value="users" {{#usersSelected}}selected{{/usersSelected}}>Users</option>
+        </select>
+    </label>
+    <label>
+        <input type='text' name='query' value="{{lastSearchQuery}}">
+    </label>
+    <input type='submit' value='Send'/>
+</form>
