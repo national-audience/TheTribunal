@@ -8,7 +8,24 @@
 <body>
 {{> snippet/header}}
 {{name}}
-
+<p>
+    {{description}}
+</p>
+<p>
+    Sigue a:
+</p>
+<p>
+    <ul>
+        {{#userFollow}}
+            <li>
+                {{.}}
+            </li>
+        {{/userFollow}}
+    </ul>
+    {{^userFollow}}
+    Este usuario no sigue a nadie
+    {{/userFollow}}
+</p>
 </body>
 {{/user}}
 </html>
