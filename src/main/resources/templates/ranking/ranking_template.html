@@ -6,8 +6,15 @@
 </head>
 <body>
 {{> snippet/header}}
-{{#hasGames}}
-{{> snippet/search/games}}
-{{/hasGames}}
+<p>Ranking of best games:</p>
+<table>
+    {{#games}}
+    <tr>
+        <td>{{-index}}º</td>
+        <td> <a href="/game/{{name}}"> {{name}}</a> </td>
+        <td>{{score}}</td>
+    </tr>
+    {{/games}}
+</table>
 </body>
 </html>
