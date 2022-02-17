@@ -8,6 +8,7 @@ import io.github.nationalaudience.thetribunal.repository.GameRepository;
 import io.github.nationalaudience.thetribunal.repository.ReviewRepository;
 import io.github.nationalaudience.thetribunal.repository.StudioRepository;
 import io.github.nationalaudience.thetribunal.repository.UserRepository;
+import org.hibernate.Hibernate;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 
@@ -32,6 +33,13 @@ public class DataBaseUsage implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+
+        //var rafa = userRepository.findByUsername("rafa2").orElseThrow();
+        //var pepe = userRepository.findByUsername("pepe1").orElseThrow();
+        //Hibernate.initialize(rafa);
+        //rafa.getUsersFollow().add(pepe);
+        //userRepository.save(rafa);
+
         //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA");
 //
         //Studio s1 = new Studio("Nintendo", "Japoneses", "Japon", 123, new ArrayList<>(), new ArrayList<>());

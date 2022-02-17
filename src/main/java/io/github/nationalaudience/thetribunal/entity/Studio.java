@@ -29,7 +29,8 @@ public class Studio {
     @ManyToMany(mappedBy = "studiosFollow")
     private List<User> studioFollowedByUsers;
 
-    public Studio() {}
+    public Studio() {
+    }
 
     public Studio(String name, String description, String location, int employees, List<Game> games, List<User> followedByUsers) {
         this.name = name;

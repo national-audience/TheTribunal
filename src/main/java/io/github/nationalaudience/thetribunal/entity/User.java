@@ -31,19 +31,6 @@ public class User implements Serializable {
     @ManyToMany
     private List<Studio> studiosFollow;
 
-    @JoinTable(name = "follower_user",
-            joinColumns = {
-                    @JoinColumn(
-                            name = "follower",
-                            referencedColumnName = "id",
-                            nullable = false
-                    )},
-            inverseJoinColumns = {
-                    @JoinColumn(
-                            name = "followed",
-                            referencedColumnName = "id",
-                            nullable = false
-                    )})
     @ManyToMany
     private List<User> usersFollow;
 
