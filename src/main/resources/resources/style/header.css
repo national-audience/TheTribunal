@@ -1,0 +1,25 @@
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 20px 0 20px;
+}
+
+.search-form {
+}
+
+.main-navbar {
+    flex: 1;
+    padding: 0 20px 0 20px;
+}
+
+.main-navbar > ul {
+    display: flex;
+    justify-content: end;
+    list-style: none;
+    padding: 0;
+}
+
+.main-navbar > ul > li {
+    padding: 5px;
+}
