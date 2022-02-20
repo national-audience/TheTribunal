@@ -10,5 +10,6 @@ public class UserDataStaticValues {
 
     public static final String TEMPLATE_USER_DATA = "data/userdata_template";
     public static final String TEMPLATE_USER_DATA_NOT_FOUND = "data/userdata_not_found_template";
+    public static final String TEMPLATE_USER_DATA_FOLLOWS = "data/userfollowsdata_template";
 
 }

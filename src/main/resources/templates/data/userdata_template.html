@@ -12,19 +12,25 @@
     {{description}}
 </p>
 <p>
-    Sigue a:
+    <a href="/user/{{username}}/follows">
+        Follows:
+        {{#usersFollow}}
+            {{count_follows}}
+        {{/usersFollow}}
+        {{^usersFollow}}
+            0
+        {{/usersFollow}}
+    </a>
 </p>
+
 <p>
-    <ul>
-        {{#userFollow}}
-            <li>
-                {{.}}
-            </li>
-        {{/userFollow}}
-    </ul>
-    {{^userFollow}}
-    Este usuario no sigue a nadie
-    {{/userFollow}}
+    Followers:
+        {{#followedByUsers}}
+            {{count_followers}}
+        {{/followedByUsers}}
+        {{^followedByUsers}}
+            0
+        {{/followedByUsers}}
 </p>
 </body>
 {{/user}}

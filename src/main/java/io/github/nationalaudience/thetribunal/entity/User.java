@@ -183,9 +183,6 @@ public class User implements Serializable {
                 ", darkMode=" + darkMode +
                 ", language='" + language + '\'' +
                 ", admin=" + admin +
-                ", studiosFollow=" + studiosFollow +
-                ", usersFollow=" + usersFollow +
-                ", followedByUsers=" + followedByUsers +
                 '}';
     }
 }

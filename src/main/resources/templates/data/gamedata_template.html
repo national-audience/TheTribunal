@@ -12,18 +12,20 @@
     {{description}}
 </p>
 <p>
-    Desarrollado por:
+    Developed by:
 </p>
 <p>
     <ul>
         {{#studios}}
             <li>
-                {{.}}
+                <a href="/studio/{{name}}">
+                {{name}}
+                </a>
             </li>
         {{/studios}}
     </ul>
     {{^studios}}
-    Este juego se ha hecho solo WTF
+        This game does not have a known author LOL
     {{/studios}}
 </p>
 </body>
