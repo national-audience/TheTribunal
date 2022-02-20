@@ -27,7 +27,31 @@
     {{^studios}}
         This game does not have a known author LOL
     {{/studios}}
+
 </p>
+    <p>
+        Reviews:
+    <ul>
+        {{#reviews}}
+        <li>
+            <p>
+                {{#user}} <a href="/user/{{username}}"> {{name}}</a> {{/user}} about
+                {{#game}} {{name}} {{/game}}:
+            </p>
+            <p>
+                {{comment}}
+            </p>
+            <p>
+                Score: {{score}} | Date: {{date}}
+            </p>
+        </li>
+        {{/reviews}}
+    </ul>
+
+    {{^reviews}}
+    It seems that this user has not made any reviews yet.
+    {{/reviews}}
+    </p>
 </body>
 {{/game}}
 </html>
