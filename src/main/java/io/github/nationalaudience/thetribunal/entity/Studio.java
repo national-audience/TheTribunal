@@ -114,7 +114,6 @@ public class Studio {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
-                ", games=" + games +
                 '}';
     }
 }

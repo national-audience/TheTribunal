@@ -109,7 +109,6 @@ public class Game {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", studios=" + studios +
                 ", date=" + date +
                 '}';
     }

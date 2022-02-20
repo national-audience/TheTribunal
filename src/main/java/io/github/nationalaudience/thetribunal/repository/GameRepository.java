@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 public interface GameRepository extends JpaRepository<Game, Long> {
 
@@ -19,4 +20,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     @Query(value = "select name from review inner join game g on review.game_id = g.id group by name order by avg(score) desc",
             nativeQuery = true)
     List<String> getAllGamesByHighScore();
+
+    Optional<Game> findByName(String name);
+
 }

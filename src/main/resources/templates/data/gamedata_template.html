@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+{{#game}}
+<head>
+    <meta charset="UTF-8">
+    <title>Game: {{name}}</title>
+</head>
+<body>
+{{> snippet/header}}
+{{name}}
+<p>
+    {{description}}
+</p>
+<p>
+    Developed by:
+</p>
+<p>
+    <ul>
+        {{#studios}}
+            <li>
+                <a href="/studio/{{name}}">
+                {{name}}
+                </a>
+            </li>
+        {{/studios}}
+    </ul>
+    {{^studios}}
+        This game does not have a known author LOL
+    {{/studios}}
+</p>
+</body>
+{{/game}}
+</html>
