@@ -11,21 +11,21 @@
         {{name}} @{{username}}
     </a>
     <p>
-        Follows:
+        Studios follows:
     </p>
     <p>
         <ul>
-            {{#usersFollow}}
+            {{#studiosFollow}}
                 <li>
-                    <a href="/user/{{username}}">
+                    <a href="/studio/{{name}}">
                         {{name}}
                     </a>
                 </li>
-            {{/usersFollow}}
+            {{/studiosFollow}}
         </ul>
-        {{^usersFollow}}
-            This user don't follow anyone.
-        {{/usersFollow}}
+        {{^studiosFollow}}
+            This user don't follow any studio.
+        {{/studiosFollow}}
     </p>
 </body>
 {{/user}}
