@@ -24,7 +24,8 @@ public class RankingController {
 
     private final GameRepository gameRepository;
 
-    private record GameScore (String name, float score) {}
+    private record GameScore(String name, float score) {
+    }
 
     public RankingController(GameRepository gameRepository) {
         this.gameRepository = gameRepository;
@@ -32,14 +33,22 @@ public class RankingController {
 
     @GetMapping(END_POINT_RANKING)
     public String showRanking(Model model,
-                              @RequestParam("size") int pageSize) {
+                              @RequestParam(value = "pageSize", defaultValue = "3") int pageSize,
+                              @RequestParam(value = "sortPageBy", defaultValue = "BEST") String directionS) {
 
-        var averageScores = gameRepository.getAllAverageScores(PageRequest.of(0, pageSize));
         var gamesOrderByScore = gameRepository.getAllGamesByHighScore();
+        var averageScores = gameRepository.getAllAverageScores(PageRequest.of(0, pageSize));
 
         var gameScores = new ArrayList<GameScore>();
-        for (int i = 0; i < averageScores.size(); i++) {
-            gameScores.add(new GameScore(gamesOrderByScore.get(i), averageScores.get(i)));
+
+        if (directionS.equals("BEST")) {
+            for (int i = 0; i < averageScores.size(); i++) {
+                gameScores.add(new GameScore(gamesOrderByScore.get(i), averageScores.get(i)));
+            }
+        } else if (directionS.equals("WORST")) {
+            for (int i = 0; i < averageScores.size(); i++) {
+                gameScores.add(new GameScore(gamesOrderByScore.get(averageScores.size()-1-i), averageScores.get(averageScores.size()-1-i)));
+            }
         }
 
         model.addAttribute("games", gameScores);

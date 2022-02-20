@@ -12,11 +12,11 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 
     List<Game> findByNameContainingIgnoreCase(String name);
 
-    @Query(value = "select avg(score) from review inner join game g on review.game_id = g.id group by name order by avg(score)",
+    @Query(value = "select avg(score) as scores from review inner join game g on review.game_id = g.id group by name order by avg(score) desc",
             nativeQuery = true)
     List<Float> getAllAverageScores(Pageable pageable);
 
-    @Query(value = "select name from review inner join game g on review.game_id = g.id group by name order by avg(score)",
+    @Query(value = "select name from review inner join game g on review.game_id = g.id group by name order by avg(score) desc",
             nativeQuery = true)
     List<String> getAllGamesByHighScore();
 }
