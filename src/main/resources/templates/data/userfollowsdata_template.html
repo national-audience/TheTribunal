@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+{{#user}}
+<head>
+    <meta charset="UTF-8">
+    <title>User {{username}}</title>
+</head>
+<body>
+{{> snippet/header}}
+{{name}}
+<p>
+    Follows:
+</p>
+<p>
+    <ul>
+        {{#usersFollow}}
+            <li>
+                <a href="/user/{{username}}">
+                    {{name}}
+                </a>
+            </li>
+        {{/usersFollow}}
+    </ul>
+    {{^usersFollow}}
+        This user don't follow anyone.
+    {{/usersFollow}}
+</p>
+</body>
+{{/user}}
+</html>
