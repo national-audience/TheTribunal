@@ -42,7 +42,7 @@ public class DataBaseUsage implements CommandLineRunner {
 
         //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA");
 //
-        //Studio s1 = new Studio("Nintendo", "Japoneses", "Japon", 123, new ArrayList<>(), new ArrayList<>());
+        Studio s1 = new Studio("Nintendo", "Japoneses", "Japon", 123, new ArrayList<>(), new ArrayList<>());
         //Studio s2 = new Studio("Sony", "Japoneses", "Japon", 213, new ArrayList<>(), new ArrayList<>());
 //
         //Game g1 = new Game("Mario", "Salto", new ArrayList<>(), new Date(), new ArrayList<>());
@@ -106,6 +106,7 @@ public class DataBaseUsage implements CommandLineRunner {
         //reviewRepository.save(r3);
         //reviewRepository.save(r4);
         //reviewRepository.save(r5);
+        studioRepository.delete(s1);
 
     }
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+{{#game}}
+<head>
+    <meta charset="UTF-8">
+    <title>Game: {{name}}</title>
+</head>
+<body>
+{{> snippet/header}}
+{{name}}
+<p>
+    {{description}}
+</p>
+<p>
+    Desarrollado por:
+</p>
+<p>
+    <ul>
+        {{#studios}}
+            <li>
+                {{.}}
+            </li>
+        {{/studios}}
+    </ul>
+    {{^studios}}
+    Este juego se ha hecho solo WTF
+    {{/studios}}
+</p>
+</body>
+{{/game}}
+</html>
