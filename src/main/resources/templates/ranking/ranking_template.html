@@ -8,11 +8,17 @@
 {{> snippet/header}}
 <p></p>
 {{> snippet/sort_page/sort_page_form}}
+
+{{#orderByBest}}
 <p>Ranking of best games:</p>
+{{/orderByBest}}
+{{^orderByBest}}
+<p>Ranking of worst games:</p>
+{{/orderByBest}}
 <table>
     {{#games}}
     <tr>
-        <td>{{-index}}º</td>
+        <td>{{index}}º</td>
         <td> <a href="/game/{{name}}"> {{name}}</a> </td>
         <td>{{score}}</td>
     </tr>

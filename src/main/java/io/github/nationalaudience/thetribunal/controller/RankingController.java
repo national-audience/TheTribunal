@@ -24,7 +24,7 @@ public class RankingController {
 
     private final GameRepository gameRepository;
 
-    private record GameScore(String name, float score) {
+    private record GameScore(int index, String name, float score) {
     }
 
     public RankingController(GameRepository gameRepository) {
@@ -41,16 +41,22 @@ public class RankingController {
 
         var gameScores = new ArrayList<GameScore>();
 
+        boolean orderByBest = false;
+
         if (directionS.equals("BEST")) {
+            orderByBest = true;
             for (int i = 0; i < averageScores.size(); i++) {
-                gameScores.add(new GameScore(gamesOrderByScore.get(i), averageScores.get(i)));
+                gameScores.add(new GameScore(i+1, gamesOrderByScore.get(i), averageScores.get(i)));
             }
         } else if (directionS.equals("WORST")) {
             for (int i = 0; i < averageScores.size(); i++) {
-                gameScores.add(new GameScore(gamesOrderByScore.get(averageScores.size()-1-i), averageScores.get(averageScores.size()-1-i)));
+                gameScores.add(new GameScore(averageScores.size() - i,
+                        gamesOrderByScore.get(averageScores.size() - 1 - i),
+                        averageScores.get(averageScores.size() - 1 - i)));
             }
         }
 
+        model.addAttribute("orderByBest", orderByBest);
         model.addAttribute("games", gameScores);
 
 
