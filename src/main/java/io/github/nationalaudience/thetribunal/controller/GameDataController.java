@@ -15,6 +15,9 @@ import java.util.Date;
 import java.util.List;
 
 import static io.github.nationalaudience.thetribunal.constant.GameDataStaticValues.*;
+import static io.github.nationalaudience.thetribunal.constant.GenericDataStaticValues.*;
+import static io.github.nationalaudience.thetribunal.constant.StudioDataStaticValues.END_POINT_DELETE_STUDIO_DATA;
+import static io.github.nationalaudience.thetribunal.constant.StudioDataStaticValues.PARAMETER_STUDIO;
 
 @Controller
 public class GameDataController {
@@ -34,6 +37,8 @@ public class GameDataController {
         if (optional.isPresent()) {
             var game = optional.get();
             model.addAttribute(ATTRIBUTE_GAME_NAME, game);
+            model.addAttribute(ATTRIBUTE_TYPE, "game");
+            model.addAttribute(ATTRIBUTE_DATA, inName);
             return TEMPLATE_GAME_DATA;
         } else {
             return TEMPLATE_GAME_DATA_NOT_FOUND;
@@ -99,5 +104,18 @@ public class GameDataController {
 
         model.addAttribute(ATTRIBUTE_GAME_NAME, name);
         return TEMPLATE_POST_NEW_GAME_TO_DB;
+    }
+
+    @PostMapping(END_POINT_DELETE_GAME_DATA)
+    public String deleteStudioData(Model model, @PathVariable(PARAMETER_GAME) String inName) {
+
+        var game = gameRepository.findByName(inName);
+
+        game.ifPresent(gameRepository::delete);
+
+        model.addAttribute(ATTRIBUTE_TYPE, "game");
+        model.addAttribute(ATTRIBUTE_DATA, inName);
+
+        return TEMPLATE_DATA_DELETED;
     }
 }
