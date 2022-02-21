@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+{{#studio}}
+<head>
+    <meta charset="UTF-8">
+    <title>Studio: {{name}}</title>
+</head>
+<body>
+    {{> snippet/header}}
+    <a href="/studio/{{name}}">
+        {{name}}
+    </a>
+    <p>
+        Followers:
+    </p>
+    <p>
+    <ul>
+        {{#studioFollowedByUsers}}
+        <li>
+            <a href="/user/{{username}}">
+                {{name}}
+            </a>
+        </li>
+        {{/studioFollowedByUsers}}
+    </ul>
+    {{^studioFollowedByUsers}}
+        This studio is not followed by anyone.
+    {{/studioFollowedByUsers}}
+    </p>
+</body>
+{{/studio}}
+</html>
