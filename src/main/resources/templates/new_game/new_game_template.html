@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new game to database</title>
+</head>
+<body>
+{{> snippet/header}}
+
+<form action="/postNewGameToDb" method="post">
+    <p>Name:</p>
+    <label>
+        <input type='text' name='gameName'>
+    </label>
+    <p>Studio:</p>
+    <label>
+        <input type='text' name='studioName'>
+    </label>
+    <p>Description:</p>
+    <label>
+        <input type='text' name='gameDescription'>
+    </label>
+    <p>
+        <input type='submit' value='Send'/>
+    </p>
+</form>
+
+{{#errorMessage}}
+<p>
+    {{.}}
+</p>
+{{/errorMessage}}
+</body>
+</html>
