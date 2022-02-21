@@ -9,6 +9,19 @@
     {{> snippet/header}}
 
     {{> snippet/delete_button}}
+
+    {{> snippet/follow_button}}
+
+    <p> </p>
+
+    {{#errorMessage}}
+    <p>
+        {{.}}
+    </p>
+    {{/errorMessage}}
+
+    <p> </p>
+
     {{name}} @{{username}}
     <p>
         {{description}}

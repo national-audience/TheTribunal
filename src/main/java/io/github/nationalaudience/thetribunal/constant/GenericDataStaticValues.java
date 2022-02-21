@@ -6,4 +6,6 @@ public class GenericDataStaticValues {
     public static final String ATTRIBUTE_TYPE = "type";
 
     public static final String TEMPLATE_DATA_DELETED = "data/data_deleted_template";
+
+    public static final String PARAMETER_FOLLOWER = "follower";
 }
