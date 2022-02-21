@@ -23,6 +23,23 @@
             Followers: {{count_followers}}
         </a>
     </p>
+    <p>
+        Games:
+    </p>
+    <p>
+        <ul>
+            {{#games}}
+            <li>
+                <a href="/game/{{name}}">
+                    {{name}}
+                </a>
+            </li>
+            {{/games}}
+        </ul>
+        {{^games}}
+            This studio does not have any game.
+        {{/games}}
+    </p>
 
 </body>
 {{/studio}}

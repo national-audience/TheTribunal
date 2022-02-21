@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static io.github.nationalaudience.thetribunal.constant.GameDataStaticValues.*;
 import static io.github.nationalaudience.thetribunal.constant.GenericDataStaticValues.*;
@@ -55,7 +58,8 @@ public class GameDataController {
             Model model,
             @RequestParam(PARAMETER_GAME_NAME) String name,
             @RequestParam(PARAMETER_GAME_STUDIO) String studioName,
-            @RequestParam(PARAMETER_GAME_DESCRIPTION) String description) {
+            @RequestParam(PARAMETER_GAME_DESCRIPTION) String description,
+            @RequestParam(PARAMETER_DATE_DESCRIPTION) String date) throws ParseException {
 
         model.addAttribute(PARAMETER_GAME_NAME, name);
 
@@ -73,6 +77,14 @@ public class GameDataController {
             model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Description field cannot be empty!");
             return TEMPLATE_NEW_GAME_TO_DB;
         }
+
+        if(date.isEmpty()){
+            model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Release date field cannot be empty!");
+            return TEMPLATE_NEW_GAME_TO_DB;
+        }
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateD = formatter.parse(date);
 
         var game = gameRepository.findByName(name);
         if (game.isPresent()) {
@@ -94,7 +106,7 @@ public class GameDataController {
                 name,
                 description,
                 List.of(studio.get()),
-                new Date(),
+                dateD,
                 new ArrayList<>()
         );
 

@@ -22,6 +22,7 @@ public class GameDataStaticValues {
     public static final String PARAMETER_GAME_NAME = "gameName";
     public static final String PARAMETER_GAME_STUDIO = "studioName";
     public static final String PARAMETER_GAME_DESCRIPTION = "gameDescription";
+    public static final String PARAMETER_DATE_DESCRIPTION = "date";
 
     public static final String ATTRIBUTE_ERROR_MESSAGE = "errorMessage";
 

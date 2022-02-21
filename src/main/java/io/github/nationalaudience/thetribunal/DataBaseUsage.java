@@ -39,10 +39,11 @@ public class DataBaseUsage implements CommandLineRunner {
         //Hibernate.initialize(rafa);
         //rafa.getUsersFollow().add(pepe);
         //userRepository.save(rafa);
+        //userRepository.save(pepe);
 
         //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA");
 //
-        Studio s1 = new Studio("Nintendo", "Japoneses", "Japon", 123, new ArrayList<>(), new ArrayList<>());
+        //Studio s1 = new Studio("Nintendo", "Japoneses", "Japon", 123, new ArrayList<>(), new ArrayList<>());
         //Studio s2 = new Studio("Sony", "Japoneses", "Japon", 213, new ArrayList<>(), new ArrayList<>());
 //
         //Game g1 = new Game("Mario", "Salto", new ArrayList<>(), new Date(), new ArrayList<>());
@@ -57,29 +58,31 @@ public class DataBaseUsage implements CommandLineRunner {
         //g4.setStudios(List.of(s2));
         //g5.setStudios(List.of(s1, s2));
 //
-        //User u1 = new User("pepe" + 1,
-        //        "iugshjkgdhu",
-        //        "Pepe Juan",
-        //        "Soy Pepe",
-        //        true,
-        //        "en-us",
-        //        false,
-        //        List.of(s1, s2),
-        //        new ArrayList<>(),
-        //        new ArrayList<>(),
-        //        new ArrayList<>());
+        /*User u1 = new User("pepe" + 1,
+                "iugshjkgdhu",
+                "Pepe Juan",
+                "Soy Pepe",
+                true,
+                "en-us",
+                false,
+                //List.of(s1, s2),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>());*/
 //
-        //User u2 = new User("Rafa" + 2,
-        //        "iugshjkgdhu",
-        //        "Rafa Exposito",
-        //        "Soy Rafa",
-        //        false,
-        //        "es-es",
-        //        true,
-        //        List.of(s1),
-        //        new ArrayList<>(),
-        //        new ArrayList<>(),
-        //        new ArrayList<>());
+        /*User u2 = new User("Rafa" + 2,
+                "iugshjkgdhu",
+                "Rafa Exposito",
+                "Soy Rafa",
+                false,
+                "es-es",
+                true,
+                //List.of(s1),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>());*/
 //
         //u1.setUsersFollow(List.of(u2));
 //
@@ -106,7 +109,7 @@ public class DataBaseUsage implements CommandLineRunner {
         //reviewRepository.save(r3);
         //reviewRepository.save(r4);
         //reviewRepository.save(r5);
-        studioRepository.delete(s1);
+        //studioRepository.delete(s1);
 
     }
 }
