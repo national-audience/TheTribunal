@@ -15,12 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import static io.github.nationalaudience.thetribunal.constant.GameDataStaticValues.*;
 import static io.github.nationalaudience.thetribunal.constant.GenericDataStaticValues.*;
-import static io.github.nationalaudience.thetribunal.constant.StudioDataStaticValues.END_POINT_DELETE_STUDIO_DATA;
-import static io.github.nationalaudience.thetribunal.constant.StudioDataStaticValues.PARAMETER_STUDIO;
 
 @Controller
 public class GameDataController {

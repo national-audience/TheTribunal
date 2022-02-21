@@ -57,6 +57,10 @@
     It seems that this game does not have any reviews yet.
     {{/reviews}}
     </p>
+    <form action="/newReviewToDb" method="post">
+        <input type='hidden' name='gameName' value="{{name}}">
+        <input type='submit' value='Add new review.'>
+    </form>
 </body>
 {{/game}}
 </html>

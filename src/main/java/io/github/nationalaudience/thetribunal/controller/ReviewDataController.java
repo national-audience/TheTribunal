@@ -9,15 +9,15 @@ import io.github.nationalaudience.thetribunal.repository.ReviewRepository;
 import io.github.nationalaudience.thetribunal.repository.StudioRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Date;
 
 import static io.github.nationalaudience.thetribunal.constant.GameDataStaticValues.ATTRIBUTE_GAME_NAME;
+import static io.github.nationalaudience.thetribunal.constant.GenericDataStaticValues.ATTRIBUTE_DATA;
+import static io.github.nationalaudience.thetribunal.constant.GenericDataStaticValues.ATTRIBUTE_TYPE;
 import static io.github.nationalaudience.thetribunal.constant.ReviewsStaticValues.*;
 
 @Controller
@@ -33,19 +33,24 @@ public class ReviewDataController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping(END_POINT_NEW_REVIEW_TO_DB)
-    public String newReviewToDb(Model model) {
+    @PostMapping(END_POINT_NEW_REVIEW_TO_DB)
+    public String newReviewToDb(Model model, HttpSession session, @RequestParam(PARAMETER_GAME_NAME) String gameName) {
+        //model.addAttribute(PARAMETER_GAME_NAME, gameName);
+        session.setAttribute(PARAMETER_GAME_NAME, gameName);
+        System.out.println(gameName);
         return TEMPLATE_NEW_REVIEW;
     }
 
     @PostMapping(END_POINT_POST_NEW_REVIEW_TO_DB)
     public String postNewReviewToDb(
             Model model,
-            @RequestParam(PARAMETER_GAME_NAME) String gameName,
+            HttpSession session,
             @RequestParam(PARAMETER_USER_NAME) String userName,
             @RequestParam(PARAMETER_COMMENT) String comment,
             @RequestParam(PARAMETER_SCORE) String score) {
 
+        var aux = session.getAttribute(PARAMETER_GAME_NAME);
+        var gameName = aux == null ? null : aux.toString();
         if (userName.isEmpty()) {
             model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Username field cannot be empty!");
             return TEMPLATE_NEW_REVIEW;
@@ -57,7 +62,7 @@ public class ReviewDataController {
             return TEMPLATE_NEW_REVIEW;
         }
 
-        if (gameName.isEmpty()) {
+        if (gameName == null) {
             model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Game name field cannot be empty!");
             return TEMPLATE_NEW_REVIEW;
         }
@@ -94,9 +99,9 @@ public class ReviewDataController {
 
         reviewRepository.save(newReview);
 
-        System.out.println("review added");
-
-        model.addAttribute(ATTRIBUTE_GAME_NAME, gameName);
+        model.addAttribute("game", exist_game.get());
+        model.addAttribute(ATTRIBUTE_TYPE, "game");
+        model.addAttribute(ATTRIBUTE_DATA, gameName);
         return TEMPLATE_POST_NEW_REVIEW;
     }
 }
