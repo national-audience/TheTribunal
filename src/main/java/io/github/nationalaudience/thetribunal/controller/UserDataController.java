@@ -52,7 +52,9 @@ public class UserDataController {
         if (optional.isPresent()) {
             var user = optional.get();
 
-            if (follower.isEmpty()) {
+            if (inUsername.equals(follower)) {
+                model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "User can not follow itself!");
+            } else if (follower.isEmpty()) {
                 model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Follower field cannot be empty!");
             } else {
                 var userF = userRepository.findByUsername(follower);
@@ -60,8 +62,7 @@ public class UserDataController {
                     model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "The user "
                             + follower
                             + " is not registered!");
-                }
-                else {
+                } else {
                     var userFollows = userF.get().getUsersFollow();
 
                     if (!userFollows.contains(user)) {
@@ -139,6 +140,15 @@ public class UserDataController {
     public String deleteUserData(Model model, @PathVariable(PARAMETER_USER) String inUsername) {
 
         var user = userRepository.findByUsername(inUsername);
+
+        if (user.isPresent()){
+            var followers = user.get().getFollowedByUsers();
+            for (var follower : followers) {
+                var follows = follower.getUsersFollow();
+                follows.remove(user.get());
+                follower.setUsersFollow(follows);
+            }
+        }
 
         user.ifPresent(userRepository::delete);
 
