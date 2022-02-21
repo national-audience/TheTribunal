@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import static io.github.nationalaudience.thetribunal.constant.GenericDataStaticValues.*;
 import static io.github.nationalaudience.thetribunal.constant.UserDataStaticValues.*;
 
 @Controller
@@ -31,6 +33,8 @@ public class UserDataController {
             model.addAttribute(ATTRIBUTE_USER_FOLLOWERS, count_followers);
             model.addAttribute(ATTRIBUTE_USER_FOLLOWS, count_follows);
             model.addAttribute(ATTRIBUTE_USER_STUDIO_FOLLOWS, count_studio_follows);
+            model.addAttribute(ATTRIBUTE_DATA, inUsername);
+            model.addAttribute(ATTRIBUTE_TYPE, "user");
             return TEMPLATE_USER_DATA;
         } else {
             return TEMPLATE_USER_DATA_NOT_FOUND;
@@ -77,5 +81,18 @@ public class UserDataController {
         } else {
             return TEMPLATE_USER_DATA_NOT_FOUND;
         }
+    }
+
+    @PostMapping(END_POINT_DELETE_USER_DATA)
+    public String deleteUserData(Model model, @PathVariable(PARAMETER_USER) String inUsername) {
+
+        var user = userRepository.findByUsername(inUsername);
+
+        user.ifPresent(userRepository::delete);
+
+        model.addAttribute(ATTRIBUTE_TYPE, "user");
+        model.addAttribute(ATTRIBUTE_DATA, inUsername);
+
+        return TEMPLATE_DATA_DELETED;
     }
 }

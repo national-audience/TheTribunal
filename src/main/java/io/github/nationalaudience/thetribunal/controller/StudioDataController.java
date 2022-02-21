@@ -16,7 +16,10 @@ import java.util.List;
 
 import static io.github.nationalaudience.thetribunal.constant.GameDataStaticValues.*;
 import static io.github.nationalaudience.thetribunal.constant.GameDataStaticValues.TEMPLATE_POST_NEW_GAME_TO_DB;
+import static io.github.nationalaudience.thetribunal.constant.GenericDataStaticValues.*;
 import static io.github.nationalaudience.thetribunal.constant.StudioDataStaticValues.*;
+import static io.github.nationalaudience.thetribunal.constant.UserDataStaticValues.END_POINT_DELETE_USER_DATA;
+import static io.github.nationalaudience.thetribunal.constant.UserDataStaticValues.PARAMETER_USER;
 
 @Controller
 public class StudioDataController {
@@ -36,6 +39,8 @@ public class StudioDataController {
             String count_followers = String.valueOf(studio.getStudioFollowedByUsers().size());
             model.addAttribute(ATTRIBUTE_STUDIO_FOLLOWERS, count_followers);
             model.addAttribute(ATTRIBUTE_STUDIO_NAME, studio);
+            model.addAttribute(ATTRIBUTE_TYPE, "studio");
+            model.addAttribute(ATTRIBUTE_DATA, inName);
             return TEMPLATE_STUDIO_DATA;
         } else {
             return TEMPLATE_STUDIO_DATA_NOT_FOUND;
@@ -111,5 +116,18 @@ public class StudioDataController {
 
         model.addAttribute(ATTRIBUTE_STUDIO_NAME, studioName);
         return TEMPLATE_POST_NEW_STUDIO;
+    }
+
+    @PostMapping(END_POINT_DELETE_STUDIO_DATA)
+    public String deleteStudioData(Model model, @PathVariable(PARAMETER_STUDIO) String inName) {
+
+        var user = studioRepository.findByName(inName);
+
+        user.ifPresent(studioRepository::delete);
+
+        model.addAttribute(ATTRIBUTE_TYPE, "studio");
+        model.addAttribute(ATTRIBUTE_DATA, inName);
+
+        return TEMPLATE_DATA_DELETED;
     }
 }
