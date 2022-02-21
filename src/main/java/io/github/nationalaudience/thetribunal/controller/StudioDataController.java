@@ -65,7 +65,7 @@ public class StudioDataController {
             Model model,
             @RequestParam(PARAMERTER_STUDIO_NAME) String studioName,
             @RequestParam(PARAMERTER_STUDIO_DESCRIPTION) String description,
-            @RequestParam(PARAMERTER_STUDIO_EMPLOYEES) int employees,
+            @RequestParam(PARAMERTER_STUDIO_EMPLOYEES) String employees,
             @RequestParam(PARAMERTER_STUDIO_LOCATION) String location) {
 
         if (studioName.isEmpty()) {
@@ -73,13 +73,20 @@ public class StudioDataController {
             return TEMPLATE_NEW_STUDIO;
         }
 
-        if (employees < 0) {
-            model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Employees number invalid!");
+        if (description.isEmpty()) {
+            model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Description field cannot be empty!");
             return TEMPLATE_NEW_STUDIO;
         }
 
-        if (description.isEmpty()) {
-            model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Description field cannot be empty!");
+        if (employees.isEmpty()) {
+            model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Employees field cannot be empty!");
+            return TEMPLATE_NEW_STUDIO;
+        }
+
+        int employeesInt = Integer.parseInt(employees);
+
+        if (employeesInt < 1) {
+            model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Employees number invalid!");
             return TEMPLATE_NEW_STUDIO;
         }
 
@@ -100,7 +107,7 @@ public class StudioDataController {
                 studioName,
                 description,
                 location,
-                employees,
+                employeesInt,
                 new ArrayList<>(),
                 new ArrayList<>()
         );

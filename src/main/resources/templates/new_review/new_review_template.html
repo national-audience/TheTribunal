@@ -2,27 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add new game to database</title>
+    <title>Add new review to database</title>
 </head>
 <body>
 {{> snippet/header}}
 
-<form action="/postNewGameToDb" method="post">
-    <p>Name:</p>
+<form action="/postNewReviewToDb" method="post">
+    <p>Your username: @</p>
+    <label>
+        <input type='text' name='userName'>
+    </label>
+    <p>Game:</p>
     <label>
         <input type='text' name='gameName'>
     </label>
-    <p>Studio:</p>
-    <label>
-        <input type='text' name='studioName'>
-    </label>
-    <p>Description:</p>
+    <p>Comment:</p>
     <label>
         <input type='text' name='gameDescription'>
     </label>
-    <p>Date:</p>
+    <p>Score:</p>
     <label>
-        <input type='date' name='date'>
+        <input type='int' name='score'>
     </label>
     <p>
         <input type='submit' value='Send'/>
