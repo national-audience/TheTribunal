@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add studio to database</title>
+</head>
+<body>
+{{> snippet/header}}
+
+<form action="/postNewStudioToDb" method="post">
+    <p>Name:</p>
+    <label>
+        <input type='text' name='studioName'>
+    </label>
+    <p>Description:</p>
+    <label>
+        <input type='text' name='studioDescription'>
+    </label>
+    <p>Number of employees:</p>
+    <label>
+        <input type='number' name='employees' min="0">
+    </label>
+    <p>Location of the studio:</p>
+    <label>
+        <input type='text' name='location'>
+    </label>
+    <p>
+        <input type='submit' value='Send'/>
+    </p>
+</form>
+
+{{#errorMessage}}
+<p>
+    {{.}}
+</p>
+{{/errorMessage}}
+</body>
+</html>
