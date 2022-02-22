@@ -58,3 +58,5 @@ Users and guests can see the ratings of a user and the average scores of a game 
 ## Diagrams
 
 ![Alt text](/pictures/the_tribunal_er.png)
+![Alt text](/pictures/uml_properties.png)
+![Alt text](/pictures/uml_relations.png)
