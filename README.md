@@ -54,3 +54,7 @@ Users and guests can see the ratings of a user and the average scores of a game 
 
 - Provides the generation of the most popular games feed.
 - Provides the notification system, allowing to send notifications about follows to the offline users.
+
+## Diagrams
+
+![Alt text](/pictures/the_tribunal_er.png)
