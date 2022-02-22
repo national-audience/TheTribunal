@@ -16,9 +16,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import static io.github.nationalaudience.thetribunal.constant.GameDataStaticValues.ATTRIBUTE_GAME_NAME;
-import static io.github.nationalaudience.thetribunal.constant.GenericDataStaticValues.ATTRIBUTE_DATA;
-import static io.github.nationalaudience.thetribunal.constant.GenericDataStaticValues.ATTRIBUTE_TYPE;
+import static io.github.nationalaudience.thetribunal.constant.GenericDataStaticValues.*;
 import static io.github.nationalaudience.thetribunal.constant.ReviewsStaticValues.*;
+import static io.github.nationalaudience.thetribunal.constant.UserDataStaticValues.END_POINT_DELETE_USER_DATA;
+import static io.github.nationalaudience.thetribunal.constant.UserDataStaticValues.PARAMETER_USER;
 
 @Controller
 public class ReviewDataController {
@@ -99,9 +100,30 @@ public class ReviewDataController {
 
         reviewRepository.save(newReview);
 
-        model.addAttribute("game", exist_game.get());
+        model.addAttribute(ATTRIBUTE_GAME, exist_game.get());
         model.addAttribute(ATTRIBUTE_TYPE, "game");
         model.addAttribute(ATTRIBUTE_DATA, gameName);
+        return TEMPLATE_POST_NEW_REVIEW;
+    }
+
+    @PostMapping(END_POINT_DELETE_REVIEW_TO_DB)
+    public String deleteUserData(
+            Model model,
+            @RequestParam(PARAMETER_USER_NAME) String userName,
+            @RequestParam(PARAMETER_GAME_NAME) String gameName){
+
+        var game = gameRepository.findByName(gameName).orElseThrow();
+
+        model.addAttribute(ATTRIBUTE_GAME, game);
+        model.addAttribute(ATTRIBUTE_TYPE, "game");
+        model.addAttribute(ATTRIBUTE_DATA, gameName);
+
+        var user = userRepository.findByUsername(userName);
+        if(user.isEmpty()) return TEMPLATE_POST_NEW_REVIEW;
+        var review = reviewRepository.findByUserAndGame(user.get(), game);
+
+        review.ifPresent(reviewRepository::delete);
+
         return TEMPLATE_POST_NEW_REVIEW;
     }
 }
