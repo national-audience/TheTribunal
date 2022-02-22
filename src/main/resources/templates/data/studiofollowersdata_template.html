@@ -6,7 +6,8 @@
     <title>Studio: {{name}}</title>
 </head>
 <body>
-    {{> snippet/header}}
+{{> snippet/header}}
+<main>
     <a href="/studio/{{name}}">
         {{name}}
     </a>
@@ -24,9 +25,10 @@
         {{/studioFollowedByUsers}}
     </ul>
     {{^studioFollowedByUsers}}
-        This studio is not followed by anyone.
+    This studio is not followed by anyone.
     {{/studioFollowedByUsers}}
     </p>
+</main>
 </body>
 {{/studio}}
 </html>

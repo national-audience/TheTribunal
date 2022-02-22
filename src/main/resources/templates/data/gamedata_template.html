@@ -8,32 +8,32 @@
 <body>
 {{> snippet/header}}
 
-{{> snippet/delete_button}}
-{{name}}
-<p>
-    {{description}}
-</p>
-<p>
-    Release data: {{date}}
-</p>
-<p>
-    Developed by:
-</p>
-<p>
+<main>
+    <h2>{{name}}</h2>
+    <p>
+        {{description}}
+    </p>
+    <p>
+        Release data: {{date}}
+    </p>
+    <p>
+        Developed by:
+    </p>
+    <p>
     <ul>
         {{#studios}}
-            <li>
-                <a href="/studio/{{name}}">
+        <li>
+            <a href="/studio/{{name}}">
                 {{name}}
-                </a>
-            </li>
+            </a>
+        </li>
         {{/studios}}
     </ul>
     {{^studios}}
-        This game does not have a known author LOL
+    This game does not have a known author LOL
     {{/studios}}
 
-</p>
+    </p>
     <p>
         Reviews:
     <ul>
@@ -56,11 +56,14 @@
     {{^reviews}}
     It seems that this game does not have any reviews yet.
     {{/reviews}}
-    </p>
+    <p>
     <form action="/newReviewToDb" method="post">
         <input type='hidden' name='gameName' value="{{name}}">
         <input type='submit' value='Add new review.'>
     </form>
+    <p>
+    {{> snippet/delete_button}}
+</main>
 </body>
 {{/game}}
 </html>

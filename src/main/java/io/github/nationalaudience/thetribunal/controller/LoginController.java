@@ -2,6 +2,7 @@ package io.github.nationalaudience.thetribunal.controller;
 
 import io.github.nationalaudience.thetribunal.entity.User;
 import io.github.nationalaudience.thetribunal.repository.UserRepository;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -89,7 +90,7 @@ public class LoginController {
 
         var newUser = new User(
                 postUser,
-                postPassword,
+                BCrypt.hashpw(postPassword, BCrypt.gensalt()),
                 postName,
                 "",
                 false,
@@ -102,8 +103,6 @@ public class LoginController {
         );
 
         userRepository.save(newUser);
-
-        System.out.println("USER CREATED");
 
         model.addAttribute(ATTRIBUTE_USERNAME, postUser);
         return TEMPLATE_SUCCESSFUL_SIGNUP;

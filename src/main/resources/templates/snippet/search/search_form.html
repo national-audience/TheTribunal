@@ -1,5 +1,4 @@
 <form action="/search" class="search-form" method="get">
-    Search:
     <label>
         <select id="type" name="type">
             <option value="all" {{#allSelected}}selected{{/allSelected}}>All</option>
@@ -9,7 +8,7 @@
         </select>
     </label>
     <label>
-        <input type='text' name='query' value="{{lastSearchQuery}}">
+        <input type='text' name='query' placeholder="Search..." value="{{lastSearchQuery}}">
     </label>
     <input type='submit' value='Send'/>
 </form>

@@ -6,33 +6,35 @@
 </head>
 <body>
 {{> snippet/header}}
+<main>
+    <h2>Add a new game</h2>
+    <form action="/postNewGameToDb" method="post">
+        <p>Name:</p>
+        <label>
+            <input type='text' name='gameName'>
+        </label>
+        <p>Studio:</p>
+        <label>
+            <input type='text' name='studioName'>
+        </label>
+        <p>Description:</p>
+        <label>
+            <input type='text' name='gameDescription'>
+        </label>
+        <p>Release date:</p>
+        <label>
+            <input type='date' name='date'>
+        </label>
+        <p>
+            <input type='submit' value='Send'/>
+        </p>
+    </form>
 
-<form action="/postNewGameToDb" method="post">
-    <p>Name:</p>
-    <label>
-        <input type='text' name='gameName'>
-    </label>
-    <p>Studio:</p>
-    <label>
-        <input type='text' name='studioName'>
-    </label>
-    <p>Description:</p>
-    <label>
-        <input type='text' name='gameDescription'>
-    </label>
-    <p>Release date:</p>
-    <label>
-        <input type='date' name='date'>
-    </label>
+    {{#errorMessage}}
     <p>
-        <input type='submit' value='Send'/>
+        {{.}}
     </p>
-</form>
-
-{{#errorMessage}}
-<p>
-    {{.}}
-</p>
-{{/errorMessage}}
+    {{/errorMessage}}
+</main>
 </body>
 </html>

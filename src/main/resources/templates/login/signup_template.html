@@ -6,33 +6,35 @@
 </head>
 <body>
 {{> snippet/header}}
+<main>
+    <h2>Create a new account</h2>
+    <form action="/postSignup" method="post">
+        <p>Username:</p>
+        <label>
+            <input type='text' name='user' value="{{user}}">
+        </label>
+        <p>Name:</p>
+        <label>
+            <input type='text' name='name'>
+        </label>
+        <p>Password:</p>
+        <label>
+            <input type='password' name='password'>
+        </label>
+        <p>Confirm your password:</p>
+        <label>
+            <input type='password' name='passwordConfirm'>
+        </label>
+        <p>
+            <input type='submit' value='Send'/>
+        </p>
+    </form>
 
-<form action="/postSignup" method="post">
-    <p>Login:</p>
-    <label>
-        <input type='text' name='user' value="{{user}}">
-    </label>
-    <p>Name:</p>
-    <label>
-        <input type='text' name='name'>
-    </label>
-    <p>Password:</p>
-    <label>
-        <input type='password' name='password'>
-    </label>
-    <p>Confirm your password:</p>
-    <label>
-        <input type='password' name='passwordConfirm'>
-    </label>
+    {{#errorMessage}}
     <p>
-        <input type='submit' value='Send'/>
+        {{.}}
     </p>
-</form>
-
-{{#errorMessage}}
-<p>
-    {{.}}
-</p>
-{{/errorMessage}}
+    {{/errorMessage}}
+</main>
 </body>
 </html>

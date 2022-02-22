@@ -1,10 +1,11 @@
-# TheTribunal
+``# TheTribunal
+
 Videogame Rating System
 
 ## About
 
-The Tribunal is a Videogame Rating System. Users can rate a game once they have finished a game.
-Users and guests can see the ratings of a user and the average scores of a game or a studio.
+The Tribunal is a Videogame Rating System. Users can rate a game once they have finished a game. Users and guests can
+see the ratings of a user and the average scores of a game or a studio.
 
 ### Public funcionalities
 
@@ -33,10 +34,14 @@ Users and guests can see the ratings of a user and the average scores of a game 
 
 ## Database entities
 
-- **User:** defines an user's account. Contains the username, the password's hash, the name and information about the user and the user's configuration. It also defines whether a user is an admin.
-- **Studio:** defines a game studio. Contains the name of the studio, a small description about them, the amount of employees and the location of their headquarters. A studio can have worked in several **games**.
-- **Game**: defines a studio's product. Contains the name, a small description, the studio that has created it and the release date. A game can have zero or several **reviews**.
-- **Review**: defines a game's review. Contains the game, the user that created the review, the review date, the score and an optional comment.
+- **User:** defines an user's account. Contains the username, the password's hash, the name and information about the
+  user and the user's configuration. It also defines whether a user is an admin.
+- **Studio:** defines a game studio. Contains the name of the studio, a small description about them, the amount of
+  employees and the location of their headquarters. A studio can have worked in several **games**.
+- **Game**: defines a studio's product. Contains the name, a small description, the studio that has created it and the
+  release date. A game can have zero or several **reviews**.
+- **Review**: defines a game's review. Contains the game, the user that created the review, the review date, the score
+  and an optional comment.
 - **UsersFollow**: defines an user's follow. It is defined by the following user and the followed user.
 - **StudioFollow**: defines a studio's follow. It is defined by the following user and the followed studio.
 
@@ -57,6 +62,67 @@ Users and guests can see the ratings of a user and the average scores of a game 
 
 ## Diagrams
 
-![Alt text](/pictures/the_tribunal_er.png)
-![Alt text](/pictures/uml_properties.png)
-![Alt text](/pictures/uml_relations.png)
+![ER](/pictures/the_tribunal_er.png)
+![UML](/pictures/uml_properties.png)
+![UML Properties](/pictures/uml_relations.png)
+
+## Web layout
+
+### Main page
+
+![Main Page](/pictures/pages/main.png)
+
+The webpage that welcomes us to The Tribunal. The navbar will be present in every place of the application.
+
+### Ranking
+
+![Ranking](/pictures/pages/ranking.png)
+
+Here you can see the best games in the application. Here you can see the average score of the game. The average is
+calculated using the score of every review of the game.
+
+### Search
+
+![Search](/pictures/pages/search.png)
+
+You can use the search bar to search for games, users and studios. The result will appear in a list of hyperlinks.
+
+### Game information
+
+![Game information](/pictures/pages/game.png)
+
+Here you can see the information about a game and its reviews. You can also create a new review or delete the game. 
+
+### Add review
+
+![Add review](/pictures/pages/review.png)
+
+Here you can add a new review for a game. You must provide a comment and a score.
+
+### Studio information
+
+![Studio information](/pictures/pages/studio.png)
+
+Here you can see the information about a studio. You can follow the studio.
+
+### User information
+
+![User information](/pictures/pages/user.png)
+
+Here you can see the information about a user. You can follow the user.
+
+### Login
+
+![Login](/pictures/pages/login.png)
+
+Here you can log in into your account. This functionality is not yet fully implemented.
+
+### Signup
+
+![Signup](/pictures/pages/signup.png)
+
+Here you can create a new user. This functionality is not yet fully implemented.
+
+## Flow diagram
+
+![Flow](/pictures/pages/diagram.png)

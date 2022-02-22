@@ -6,31 +6,32 @@
 </head>
 <body>
 {{> snippet/header}}
+<main>
+    <h2>Log in into your account</h2>
+    <form action="/postLogin" method="post">
+        <p>Username:</p>
+        <label>
+            <input type='text' name='user'>
+        </label>
+        <p>Password:</p>
+        <label>
+            <input type='password' name='password'>
+        </label>
+        <p>
+            <input type='submit' value='Send'/>
+        </p>
+    </form>
 
-<form action="/postLogin" method="post">
-    <p>Username:</p>
-    <label>
-        <input type='text' name='user'>
-    </label>
-    <p>Password:</p>
-    <label>
-        <input type='password' name='password'>
-    </label>
+    {{#userFound}}
     <p>
-        <input type='submit' value='Send'/>
+        User found, but logins are not implemented yet!
     </p>
-</form>
-
-{{#userFound}}
-<p>
-    User found, but logins are not implemented yet!
-</p>
-{{/userFound}}
-{{#userNotFound}}
-<p>
-    User not found!
-</p>
-{{/userNotFound}}
-
+    {{/userFound}}
+    {{#userNotFound}}
+    <p>
+        User not found!
+    </p>
+    {{/userNotFound}}
+</main>
 </body>
 </html>
