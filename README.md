@@ -1,4 +1,4 @@
-``# TheTribunal
+# TheTribunal
 
 Videogame Rating System
 
