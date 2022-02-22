@@ -10,6 +10,7 @@ public class ReviewsStaticValues {
     public static final String PARAMETER_USER_NAME = "userName";
     public static final String PARAMETER_COMMENT = "comment";
     public static final String PARAMETER_SCORE = "score";
+    public static final String PARAMETER_DELETE_RETURN_GAME = "deleteReturnGame";
 
     public static final String TEMPLATE_NEW_REVIEW = "new_review/new_review_template";
     public static final String TEMPLATE_POST_NEW_REVIEW = "data/gamedata_template";

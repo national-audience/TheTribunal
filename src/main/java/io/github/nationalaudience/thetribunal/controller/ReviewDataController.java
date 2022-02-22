@@ -1,25 +1,22 @@
 package io.github.nationalaudience.thetribunal.controller;
 
-import io.github.nationalaudience.thetribunal.entity.Game;
+import io.github.nationalaudience.thetribunal.constant.GameDataStaticValues;
+import io.github.nationalaudience.thetribunal.constant.UserDataStaticValues;
 import io.github.nationalaudience.thetribunal.entity.Review;
-import io.github.nationalaudience.thetribunal.entity.Studio;
 import io.github.nationalaudience.thetribunal.repository.GameRepository;
-import io.github.nationalaudience.thetribunal.repository.UserRepository;
 import io.github.nationalaudience.thetribunal.repository.ReviewRepository;
-import io.github.nationalaudience.thetribunal.repository.StudioRepository;
+import io.github.nationalaudience.thetribunal.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.Date;
 
-import static io.github.nationalaudience.thetribunal.constant.GameDataStaticValues.ATTRIBUTE_GAME_NAME;
 import static io.github.nationalaudience.thetribunal.constant.GenericDataStaticValues.*;
 import static io.github.nationalaudience.thetribunal.constant.ReviewsStaticValues.*;
-import static io.github.nationalaudience.thetribunal.constant.UserDataStaticValues.END_POINT_DELETE_USER_DATA;
-import static io.github.nationalaudience.thetribunal.constant.UserDataStaticValues.PARAMETER_USER;
+import static io.github.nationalaudience.thetribunal.constant.UserDataStaticValues.*;
 
 @Controller
 public class ReviewDataController {
@@ -110,20 +107,31 @@ public class ReviewDataController {
     public String deleteUserData(
             Model model,
             @RequestParam(PARAMETER_USER_NAME) String userName,
-            @RequestParam(PARAMETER_GAME_NAME) String gameName){
+            @RequestParam(PARAMETER_GAME_NAME) String gameName,
+            @RequestParam(PARAMETER_DELETE_RETURN_GAME) boolean returnToGameData
+    ) {
 
         var game = gameRepository.findByName(gameName).orElseThrow();
+        var user = userRepository.findByUsername(userName).orElseThrow();
+        reviewRepository.findByUserAndGame(user, game).ifPresent(reviewRepository::delete);
 
-        model.addAttribute(ATTRIBUTE_GAME, game);
-        model.addAttribute(ATTRIBUTE_TYPE, "game");
-        model.addAttribute(ATTRIBUTE_DATA, gameName);
+        if (returnToGameData) {
+            model.addAttribute(ATTRIBUTE_GAME, game);
+            model.addAttribute(ATTRIBUTE_TYPE, "game");
+            model.addAttribute(ATTRIBUTE_DATA, gameName);
+            return GameDataStaticValues.TEMPLATE_GAME_DATA;
+        } else {
+            String count_followers = String.valueOf(user.getFollowedByUsers().size());
+            String count_follows = String.valueOf(user.getUsersFollow().size());
+            String count_studio_follows = String.valueOf(user.getStudiosFollow().size());
 
-        var user = userRepository.findByUsername(userName);
-        if(user.isEmpty()) return TEMPLATE_POST_NEW_REVIEW;
-        var review = reviewRepository.findByUserAndGame(user.get(), game);
-
-        review.ifPresent(reviewRepository::delete);
-
-        return TEMPLATE_POST_NEW_REVIEW;
+            model.addAttribute(ATTRIBUTE_USER, user);
+            model.addAttribute(ATTRIBUTE_USER_FOLLOWERS, count_followers);
+            model.addAttribute(ATTRIBUTE_USER_FOLLOWS, count_follows);
+            model.addAttribute(ATTRIBUTE_USER_STUDIO_FOLLOWS, count_studio_follows);
+            model.addAttribute(ATTRIBUTE_DATA, userName);
+            model.addAttribute(ATTRIBUTE_TYPE, "user");
+            return UserDataStaticValues.TEMPLATE_USER_DATA;
+        }
     }
 }
