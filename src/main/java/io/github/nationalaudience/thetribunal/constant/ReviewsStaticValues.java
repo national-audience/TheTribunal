@@ -4,6 +4,7 @@ public class ReviewsStaticValues {
 
     public static final String END_POINT_NEW_REVIEW_TO_DB = "/newReviewToDb";
     public static final String END_POINT_POST_NEW_REVIEW_TO_DB = "/postNewReviewToDb";
+    public static final String END_POINT_DELETE_REVIEW_TO_DB = "/deleteReviewToDb";
 
     public static final String PARAMETER_GAME_NAME = "gameName";
     public static final String PARAMETER_USER_NAME = "userName";
