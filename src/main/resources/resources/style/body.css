@@ -1,0 +1,77 @@
+body {
+    margin: 0;
+}
+
+.dark-body {
+    background-color: #202124;
+    color: #eee;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main form {
+    width: 30%;
+}
+
+main input,
+main select {
+    width: 100%;
+}
+
+main input[type=text],
+main input[type=password],
+main input[type=date],
+main input[type=number],
+main select {
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 2px solid #ccc;
+    padding: 8px 16px;
+    transition: width 0.4s ease-in-out;
+}
+
+main input[type=submit] {
+    background-color: #4ca3af;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 2px solid #4ca3af;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s,
+    border-bottom-color 0.2s,
+    border-top-color 0.2s,
+    border-right-color 0.2s,
+    border-left-color 0.2s;
+}
+
+main input[type=submit]:hover {
+    background-color: #377780;
+    border: 2px solid #377780;
+    transition: background-color 0.4s ease-in-out;
+}
+
+ul, ol {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style-type: none;
+}
+
+.search-list a {
+    color: #456280;
+    text-decoration: none;
+}
+
+.search-list li {
+    margin: 10px 0;
+    list-style-type: none;
+    font-size: 20px;
+    text-align: center;
+}

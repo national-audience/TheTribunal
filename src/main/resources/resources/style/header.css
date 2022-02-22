@@ -3,13 +3,57 @@ header {
     flex-direction: row;
     align-items: center;
     padding: 0 20px 0 20px;
+    background-color: #083751;
 }
 
-.search-form {
+header a {
+    color: #80b4e3;
+    text-decoration: none;
+}
+
+.search-form:focus {
+}
+
+.search-form:focus {
+    min-width: 500px;
+}
+
+.search-form input[type=submit] {
+    background-color: #4ca3af;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 2px solid #4ca3af;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s,
+    border-bottom-color 0.2s,
+    border-top-color 0.2s,
+    border-right-color 0.2s,
+    border-left-color 0.2s;
+}
+
+.search-form input[type=submit]:hover {
+    background-color: #377780;
+    border: 2px solid #377780;
+    transition: background-color 0.4s ease-in-out;
+}
+
+.search-form input[type=text], .search-form select {
+    width: 130px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 2px solid #ccc;
+    padding: 8px 16px;
+    transition: width 0.4s ease-in-out;
+}
+
+.search-form input[type=text]:focus {
+    width: 300px;
 }
 
 .main-navbar {
-    flex: 1;
+    flex: 3;
     padding: 0 20px 0 20px;
 }
 
@@ -21,5 +65,5 @@ header {
 }
 
 .main-navbar > ul > li {
-    padding: 5px;
+    padding: 5px 10px;
 }

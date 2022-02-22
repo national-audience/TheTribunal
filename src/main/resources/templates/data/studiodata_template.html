@@ -6,21 +6,18 @@
     <title>Studio: {{name}}</title>
 </head>
 <body>
-    {{> snippet/header}}
-    {{> snippet/delete_button}}
-    {{> snippet/follow_button}}
-
-    <p> </p>
+{{> snippet/header}}
+<main>
+    <p></p>
 
     {{#errorMessage}}
     <p>
         {{.}}
     </p>
     {{/errorMessage}}
-
-    <p> </p>
-
-    {{name}}
+    <h2>
+        {{name}}
+    </h2>
     <p>
         {{description}}
     </p>
@@ -38,21 +35,24 @@
     <p>
         Games:
     </p>
+    {{#games}}
+    <ul>
+        <li>
+            <a href="/game/{{name}}">
+                {{name}}
+            </a>
+        </li>
+    </ul>
+    {{/games}}
+    {{^games}}
+    This studio does not have any game.
+    {{/games}}
     <p>
-        <ul>
-            {{#games}}
-            <li>
-                <a href="/game/{{name}}">
-                    {{name}}
-                </a>
-            </li>
-            {{/games}}
-        </ul>
-        {{^games}}
-            This studio does not have any game.
-        {{/games}}
-    </p>
+    {{> snippet/follow_button}}
+    <p>
+    {{> snippet/delete_button}}
 
+</main>
 </body>
 {{/studio}}
 </html>

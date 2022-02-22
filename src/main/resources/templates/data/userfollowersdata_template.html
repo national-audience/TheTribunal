@@ -6,7 +6,8 @@
     <title>User {{username}}</title>
 </head>
 <body>
-    {{> snippet/header}}
+{{> snippet/header}}
+<main>
     <a href="/user/{{username}}">
         {{name}} @{{username}}
     </a>
@@ -14,19 +15,20 @@
         Followers:
     </p>
     <p>
-        <ul>
-            {{#followedByUsers}}
-                <li>
-                    <a href="/user/{{username}}">
-                        {{name}}
-                    </a>
-                </li>
-            {{/followedByUsers}}
-        </ul>
-        {{^followedByUsers}}
-            This user is not followed by anyone.
+    <ul>
+        {{#followedByUsers}}
+        <li>
+            <a href="/user/{{username}}">
+                {{name}}
+            </a>
+        </li>
         {{/followedByUsers}}
+    </ul>
+    {{^followedByUsers}}
+    This user is not followed by anyone.
+    {{/followedByUsers}}
     </p>
+</main>
 </body>
 {{/user}}
 </html>

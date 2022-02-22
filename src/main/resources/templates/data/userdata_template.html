@@ -6,23 +6,17 @@
     <title>User {{username}}</title>
 </head>
 <body>
-    {{> snippet/header}}
-
-    {{> snippet/delete_button}}
-
-    {{> snippet/follow_button}}
-
-    <p> </p>
-
+{{> snippet/header}}
+<main>
     {{#errorMessage}}
     <p>
         {{.}}
     </p>
     {{/errorMessage}}
 
-    <p> </p>
+    <p></p>
 
-    {{name}} @{{username}}
+    <h2>{{name}} @{{username}}</h2>
     <p>
         {{description}}
     </p>
@@ -46,27 +40,31 @@
 
     <p>
         Reviews:
-        <ul>
-            {{#reviews}}
-                <li>
-                    <p>
-                        {{#user}} {{name}} {{/user}} about
-                        {{#game}} <a href="/game/{{name}}"> {{name}}</a>{{/game}}:
-                    </p>
-                    <p>
-                        {{comment}}
-                    </p>
-                    <p>
-                        Score: {{score}} | Date: {{date}}
-                    </p>
-                </li>
-            {{/reviews}}
-        </ul>
-
-        {{^reviews}}
-            It seems that this user has not made any reviews yet.
+    <ul>
+        {{#reviews}}
+        <li>
+            <p>
+                {{#user}} {{name}} {{/user}} about
+                {{#game}} <a href="/game/{{name}}"> {{name}}</a>{{/game}}:
+            </p>
+            <p>
+                {{comment}}
+            </p>
+            <p>
+                Score: {{score}} | Date: {{date}}
+            </p>
+        </li>
         {{/reviews}}
-    </p>
+    </ul>
+
+    {{^reviews}}
+    It seems that this user has not made any reviews yet.
+    {{/reviews}}
+    <p>
+    {{> snippet/follow_button}}
+    <p>
+    {{> snippet/delete_button}}
+</main>
 </body>
 {{/user}}
 </html>

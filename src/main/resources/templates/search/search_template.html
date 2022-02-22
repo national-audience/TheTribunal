@@ -6,14 +6,16 @@
 </head>
 <body>
 {{> snippet/header}}
-{{#hasGames}}
-{{> snippet/search/games}}
-{{/hasGames}}
-{{#hasStudios}}
-{{> snippet/search/studios}}
-{{/hasStudios}}
-{{#hasUsers}}
-{{> snippet/search/users}}
-{{/hasUsers}}
+<main>
+    {{#hasGames}}
+    {{> snippet/search/games}}
+    {{/hasGames}}
+    {{#hasStudios}}
+    {{> snippet/search/studios}}
+    {{/hasStudios}}
+    {{#hasUsers}}
+    {{> snippet/search/users}}
+    {{/hasUsers}}
+</main>
 </body>
 </html>
