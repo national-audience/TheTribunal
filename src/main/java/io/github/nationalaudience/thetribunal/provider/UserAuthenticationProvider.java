@@ -1,6 +1,6 @@
 package io.github.nationalaudience.thetribunal.provider;
 
-import io.github.nationalaudience.thetribunal.constant.Roles;
+import io.github.nationalaudience.thetribunal.constant.Authorities;
 import io.github.nationalaudience.thetribunal.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -17,8 +17,8 @@ import java.util.List;
 
 @Component
 public class UserAuthenticationProvider implements AuthenticationProvider {
-    private static final GrantedAuthority ADMIN = new SimpleGrantedAuthority(Roles.ADMIN);
-    private static final GrantedAuthority USER = new SimpleGrantedAuthority(Roles.USER);
+    private static final GrantedAuthority ADMIN = new SimpleGrantedAuthority(Authorities.ADMIN);
+    private static final GrantedAuthority USER = new SimpleGrantedAuthority(Authorities.USER);
 
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
