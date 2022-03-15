@@ -99,16 +99,19 @@ public class ReviewDataController {
     }
 
     @PostMapping(END_POINT_DELETE_REVIEW_TO_DB)
-    public String deleteUserData(
+    public String deleteReview(
             Model model,
             @RequestParam(PARAMETER_USER_NAME) String userName,
             @RequestParam(PARAMETER_GAME_NAME) String gameName,
             @RequestParam(PARAMETER_DELETE_RETURN_GAME) boolean returnToGameData
     ) {
-
+        var loggedUser = (User) model.getAttribute(LoginStaticValues.CACHE_LOGGED_USER);
         var game = gameRepository.findByName(gameName).orElseThrow();
         var user = userRepository.findByUsername(userName).orElseThrow();
-        reviewRepository.findByUserAndGame(user, game).ifPresent(reviewRepository::delete);
+
+        if (loggedUser != null && (loggedUser.isAdmin() || loggedUser.getUsername().equals(userName))) {
+            reviewRepository.findByUserAndGame(user, game).ifPresent(reviewRepository::delete);
+        }
 
         if (returnToGameData) {
             model.addAttribute(ATTRIBUTE_GAME, game);

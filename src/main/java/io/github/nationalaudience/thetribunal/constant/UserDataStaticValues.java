@@ -14,6 +14,7 @@ public class UserDataStaticValues {
 
     public static final String ATTRIBUTE_USER = "user";
     public static final String ATTRIBUTE_USER_FOLLOWERS = "count_followers";
+    public static final String ATTRIBUTE_USER_REVIEWS = "user_reviews";
     public static final String ATTRIBUTE_USER_FOLLOWS = "count_follows";
     public static final String ATTRIBUTE_USER_STUDIO_FOLLOWS = "count_studio_follows";
     public static final String ATTRIBUTE_USER_FOLLOWING = "following_this_user";

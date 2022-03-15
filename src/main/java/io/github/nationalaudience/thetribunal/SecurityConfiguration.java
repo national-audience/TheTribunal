@@ -39,6 +39,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated();
         http.authorizeRequests().antMatchers(StudioDataStaticValues.END_POINT_UNFOLLOW_STUDIO_DATA + "/*")
                 .authenticated();
+        http.authorizeRequests().antMatchers(ReviewsStaticValues.END_POINT_DELETE_REVIEW_TO_DB)
+                .authenticated();
 
         http.authorizeRequests().anyRequest().permitAll();
 

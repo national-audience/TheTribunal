@@ -3,6 +3,7 @@ package io.github.nationalaudience.thetribunal.controller;
 import io.github.nationalaudience.thetribunal.constant.LoginStaticValues;
 import io.github.nationalaudience.thetribunal.entity.User;
 import io.github.nationalaudience.thetribunal.repository.UserRepository;
+import io.github.nationalaudience.thetribunal.util.ReviewUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,7 @@ public class UserDataController {
             model.addAttribute(ATTRIBUTE_USER_FOLLOWERS, count_followers);
             model.addAttribute(ATTRIBUTE_USER_FOLLOWS, count_follows);
             model.addAttribute(ATTRIBUTE_USER_STUDIO_FOLLOWS, count_studio_follows);
+            model.addAttribute(ATTRIBUTE_USER_REVIEWS, ReviewUtils.makeReviewSnapshot(user.getReviews(), loggedUser));
             model.addAttribute(ATTRIBUTE_USER_FOLLOWING,
                     loggedUser != null && loggedUser.getUsersFollow().contains(user));
             model.addAttribute(ATTRIBUTE_USER_OWN_PAGE, loggedUser == user);
@@ -80,6 +82,7 @@ public class UserDataController {
             model.addAttribute(ATTRIBUTE_USER_FOLLOWERS, count_followers);
             model.addAttribute(ATTRIBUTE_USER_FOLLOWS, count_follows);
             model.addAttribute(ATTRIBUTE_USER_STUDIO_FOLLOWS, count_studio_follows);
+            model.addAttribute(ATTRIBUTE_USER_REVIEWS, ReviewUtils.makeReviewSnapshot(user.getReviews(), follower));
             model.addAttribute(ATTRIBUTE_USER_FOLLOWING,
                     follower != null && follower.getUsersFollow().contains(user));
             model.addAttribute(ATTRIBUTE_USER_OWN_PAGE, follower == user);
@@ -123,6 +126,7 @@ public class UserDataController {
             model.addAttribute(ATTRIBUTE_USER_FOLLOWERS, count_followers);
             model.addAttribute(ATTRIBUTE_USER_FOLLOWS, count_follows);
             model.addAttribute(ATTRIBUTE_USER_STUDIO_FOLLOWS, count_studio_follows);
+            model.addAttribute(ATTRIBUTE_USER_REVIEWS, ReviewUtils.makeReviewSnapshot(user.getReviews(), follower));
             model.addAttribute(ATTRIBUTE_USER_FOLLOWING,
                     follower != null && follower.getUsersFollow().contains(user));
             model.addAttribute(ATTRIBUTE_USER_OWN_PAGE, follower == user);

@@ -12,6 +12,7 @@ public class GameDataStaticValues {
     public static final String PARAMETER_GAME = "inName";
 
     public static final String ATTRIBUTE_GAME_NAME = "game";
+    public static final String ATTRIBUTE_GAME_REVIEWS = "game_reviews";
 
     public static final String TEMPLATE_GAME_DATA = "data/gamedata_template";
     public static final String TEMPLATE_GAME_DATA_NOT_FOUND = "data/gamedata_not_found_template";

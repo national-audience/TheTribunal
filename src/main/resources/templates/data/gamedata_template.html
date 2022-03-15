@@ -35,30 +35,9 @@
     <p>
         Reviews:
     <ul>
-        {{#reviews}}
-        <li>
-            <form action="/deleteReviewToDb" method="post">
-                {{#game}}
-                <input type='hidden' name='gameName' value="{{name}}">
-                {{/game}}
-                {{#user}}
-                <input type='hidden' name='userName' value="{{username}}">
-                {{/user}}
-                <input type='hidden' name='deleteReturnGame' value=true>
-                <input type='submit' value='Delete review'>
-            </form>
-            <p>
-                {{#user}} <a href="/user/{{username}}"> {{name}}</a> {{/user}} about
-                {{#game}} {{name}} {{/game}}:
-            </p>
-            <p>
-                {{comment}}
-            </p>
-            <p>
-                Score: {{score}} | Date: {{date}}
-            </p>
-        </li>
-        {{/reviews}}
+        {{#game_reviews}}
+        {{> snippet/review}}
+        {{/game_reviews}}
     </ul>
 
     {{^reviews}}

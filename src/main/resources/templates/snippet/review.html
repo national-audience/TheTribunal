@@ -1,0 +1,23 @@
+<li>
+    {{#canBeDeleted}}
+    <form action="/deleteReviewToDb" method="post">
+        {{#game}}
+        <input type='hidden' name='gameName' value="{{game}}">
+        {{/game}}
+        {{#user}}
+        <input type='hidden' name='userName' value="{{username}}">
+        {{/user}}
+        <input type='hidden' name='deleteReturnGame' value=false>
+        <input type='submit' value='Delete review'>
+    </form>
+    {{/canBeDeleted}}
+    <p>
+        {{user}} about <a href="/game/{{game}}">{{game}}</a>:
+    </p>
+    <p>
+        {{comment}}
+    </p>
+    <p>
+        Score: {{score}} | Date: {{date}}
+    </p>
+</li>
