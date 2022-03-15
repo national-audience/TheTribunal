@@ -3,7 +3,7 @@ package io.github.nationalaudience.thetribunal.constant;
 public class GameDataStaticValues {
 
     public static final String END_POINT_GAME_DATA = "/game/{inName}";
-    public static final String END_POINT_DELETE_GAME_DATA = "/game/delete/{inName}";
+    public static final String END_POINT_DELETE_GAME_DATA = "/game/delete";
 
     public static final String END_POINT_NEW_GAME_TO_DB = "/newGameToDb";
 

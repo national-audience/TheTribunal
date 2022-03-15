@@ -1,8 +1,8 @@
 package io.github.nationalaudience.thetribunal.controller;
 
-import io.github.nationalaudience.thetribunal.entity.Game;
+import io.github.nationalaudience.thetribunal.constant.LoginStaticValues;
 import io.github.nationalaudience.thetribunal.entity.Studio;
-import io.github.nationalaudience.thetribunal.repository.GameRepository;
+import io.github.nationalaudience.thetribunal.entity.User;
 import io.github.nationalaudience.thetribunal.repository.StudioRepository;
 import io.github.nationalaudience.thetribunal.repository.UserRepository;
 import org.springframework.stereotype.Controller;
@@ -13,15 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
-import static io.github.nationalaudience.thetribunal.constant.GameDataStaticValues.*;
-import static io.github.nationalaudience.thetribunal.constant.GameDataStaticValues.TEMPLATE_POST_NEW_GAME_TO_DB;
+import static io.github.nationalaudience.thetribunal.constant.GameDataStaticValues.ATTRIBUTE_ERROR_MESSAGE;
 import static io.github.nationalaudience.thetribunal.constant.GenericDataStaticValues.*;
 import static io.github.nationalaudience.thetribunal.constant.StudioDataStaticValues.*;
-import static io.github.nationalaudience.thetribunal.constant.UserDataStaticValues.END_POINT_DELETE_USER_DATA;
-import static io.github.nationalaudience.thetribunal.constant.UserDataStaticValues.PARAMETER_USER;
 
 @Controller
 public class StudioDataController {
@@ -51,36 +46,25 @@ public class StudioDataController {
         }
     }
 
-    @PostMapping(END_POINT_STUDIO_DATA)
-    public String newFollowerStudioData(Model model, @PathVariable(PARAMETER_STUDIO) String inName,
-                                        @RequestParam(PARAMETER_FOLLOWER) String follower) {
+    @PostMapping(END_POINT_FOLLOW_STUDIO_DATA + "/{inName}")
+    public String newFollowerStudioData(Model model, @PathVariable(PARAMETER_STUDIO) String inName) {
 
         var optional = studioRepository.findByName(inName);
         if (optional.isPresent()) {
             var studio = optional.get();
+            var follower = (User) model.getAttribute(LoginStaticValues.CACHE_LOGGED_USER);
 
-            if (follower.isEmpty()) {
+            if (follower == null) {
                 model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Follower field cannot be empty!");
             } else {
-                var user = userRepository.findByUsername(follower);
-                if (user.isEmpty()) {
+                var studioFollow = follower.getStudiosFollow();
+                if (!studioFollow.contains(studio)) {
+                    studioFollow.add(studio);
+                    userRepository.save(follower);
+                } else {
                     model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "The user "
-                            + follower
-                            + " is not registered!");
-                }
-                else {
-                    var studioFollows = user.get().getStudiosFollow();
-
-                    if (!studioFollows.contains(studio)) {
-                        studioFollows.add(studio);
-                        user.get().setStudiosFollow(studioFollows);
-
-                        userRepository.save(user.get());
-                    } else {
-                        model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "The user "
-                                + user.get().getName()
-                                + " is following this studio already!");
-                    }
+                            + follower.getName()
+                            + " is following this studio already!");
                 }
             }
 
@@ -173,7 +157,7 @@ public class StudioDataController {
         return TEMPLATE_POST_NEW_STUDIO;
     }
 
-    @PostMapping(END_POINT_DELETE_STUDIO_DATA)
+    @PostMapping(END_POINT_DELETE_STUDIO_DATA + "/{inName}")
     public String deleteStudioData(Model model, @PathVariable(PARAMETER_STUDIO) String inName) {
 
         var user = studioRepository.findByName(inName);

@@ -75,7 +75,7 @@ public class GameDataController {
             return TEMPLATE_NEW_GAME_TO_DB;
         }
 
-        if(date.isEmpty()){
+        if (date.isEmpty()) {
             model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Release date field cannot be empty!");
             return TEMPLATE_NEW_GAME_TO_DB;
         }
@@ -115,7 +115,7 @@ public class GameDataController {
         return TEMPLATE_POST_NEW_GAME_TO_DB;
     }
 
-    @PostMapping(END_POINT_DELETE_GAME_DATA)
+    @PostMapping(END_POINT_DELETE_GAME_DATA + "/{inName}")
     public String deleteStudioData(Model model, @PathVariable(PARAMETER_GAME) String inName) {
 
         var game = gameRepository.findByName(inName);

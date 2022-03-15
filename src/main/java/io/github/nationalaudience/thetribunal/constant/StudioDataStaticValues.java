@@ -3,7 +3,8 @@ package io.github.nationalaudience.thetribunal.constant;
 public class StudioDataStaticValues {
 
     public static final String END_POINT_STUDIO_DATA = "/studio/{inName}";
-    public static final String END_POINT_DELETE_STUDIO_DATA = "/studio/delete/{inName}";
+    public static final String END_POINT_DELETE_STUDIO_DATA = "/studio/delete";
+    public static final String END_POINT_FOLLOW_STUDIO_DATA = "/studio/follow";
     public static final String END_POINT_STUDIO_FOLLOWERS_DATA = "/studio/{inName}/followers";
     public static final String END_POINT_NEW_STUDIO_TO_DB = "/newStudioToDb";
     public static final String END_POINT_POST_NEW_STUDIO_TO_DB = "/postNewStudioToDb";

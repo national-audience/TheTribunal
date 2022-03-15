@@ -3,7 +3,8 @@ package io.github.nationalaudience.thetribunal.constant;
 public class UserDataStaticValues {
 
     public static final String END_POINT_USER_DATA = "/user/{inUsername}";
-    public static final String END_POINT_DELETE_USER_DATA = "/user/delete/{inUsername}";
+    public static final String END_POINT_FOLLOW_USER_DATA = "/user/follow";
+    public static final String END_POINT_DELETE_USER_DATA = "/user/delete";
     public static final String END_POINT_USER_FOLLOWS_DATA = "/user/{inUsername}/follows";
     public static final String END_POINT_USER_FOLLOWERS_DATA = "/user/{inUsername}/followers";
     public static final String END_POINT_USER_STUDIOS_FOLLOWS_DATA = "/user/{inUsername}/studios-follows";

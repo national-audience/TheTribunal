@@ -47,10 +47,14 @@
     {{^games}}
     This studio does not have any game.
     {{/games}}
+    {{#loggedUser}}
     <p>
-    {{> snippet/follow_button}}
+        {{> snippet/follow_button}}
     <p>
-    {{> snippet/delete_button}}
+        {{#admin}}
+        {{> snippet/delete_button}}
+        {{/admin}}
+        {{/loggedUser}}
 
 </main>
 </body>

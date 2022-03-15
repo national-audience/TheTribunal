@@ -4,6 +4,7 @@ public class LoginStaticValues {
 
     public static final String END_POINT_LOGIN = "/login";
     public static final String END_POINT_ERROR_LOGIN = "/errorLogin";
+    public static final String END_POINT_LOGOUT = "/logout";
     public static final String END_POINT_SIGNUP = "/signup";
     public static final String END_POINT_POST_SIGNUP = "/postSignup";
 

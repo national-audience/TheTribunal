@@ -70,10 +70,14 @@
     {{^reviews}}
     It seems that this user has not made any reviews yet.
     {{/reviews}}
+    {{#loggedUser}}
     <p>
     {{> snippet/follow_button}}
     <p>
+    {{#admin}}
     {{> snippet/delete_button}}
+    {{/admin}}
+    {{/loggedUser}}
 </main>
 </body>
 {{/user}}
