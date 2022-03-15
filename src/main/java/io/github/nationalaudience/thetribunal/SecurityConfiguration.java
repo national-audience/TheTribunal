@@ -13,6 +13,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers("/newStudioToDb").hasAnyAuthority(Authorities.ADMIN);
         http.authorizeRequests().antMatchers("/newGameToDb").hasAnyAuthority(Authorities.ADMIN);
+
+        http.authorizeRequests().antMatchers("/newReviewToDb").authenticated();
+
         http.authorizeRequests().anyRequest().permitAll();
 
         http.formLogin().loginPage("/login");

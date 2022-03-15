@@ -32,8 +32,6 @@
     {{^studios}}
     This game does not have a known author LOL
     {{/studios}}
-
-    </p>
     <p>
         Reviews:
     <ul>
@@ -66,13 +64,19 @@
     {{^reviews}}
     It seems that this game does not have any reviews yet.
     {{/reviews}}
+    {{#loggedUser}}
     <p>
     <form action="/newReviewToDb" method="post">
+        {{#game}}
         <input type='hidden' name='gameName' value="{{name}}">
+        {{/game}}
         <input type='submit' value='Add new review.'>
     </form>
+    {{#admin}}
     <p>
-    {{> snippet/delete_button}}
+        {{> snippet/delete_button}}
+        {{/admin}}
+        {{/loggedUser}}
 </main>
 </body>
 {{/game}}

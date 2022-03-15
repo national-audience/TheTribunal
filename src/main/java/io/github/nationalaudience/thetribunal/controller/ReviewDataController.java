@@ -1,8 +1,10 @@
 package io.github.nationalaudience.thetribunal.controller;
 
 import io.github.nationalaudience.thetribunal.constant.GameDataStaticValues;
+import io.github.nationalaudience.thetribunal.constant.LoginStaticValues;
 import io.github.nationalaudience.thetribunal.constant.UserDataStaticValues;
 import io.github.nationalaudience.thetribunal.entity.Review;
+import io.github.nationalaudience.thetribunal.entity.User;
 import io.github.nationalaudience.thetribunal.repository.GameRepository;
 import io.github.nationalaudience.thetribunal.repository.ReviewRepository;
 import io.github.nationalaudience.thetribunal.repository.UserRepository;
@@ -33,9 +35,7 @@ public class ReviewDataController {
 
     @PostMapping(END_POINT_NEW_REVIEW_TO_DB)
     public String newReviewToDb(Model model, HttpSession session, @RequestParam(PARAMETER_GAME_NAME) String gameName) {
-        //model.addAttribute(PARAMETER_GAME_NAME, gameName);
         session.setAttribute(PARAMETER_GAME_NAME, gameName);
-        System.out.println(gameName);
         return TEMPLATE_NEW_REVIEW;
     }
 
@@ -43,20 +43,15 @@ public class ReviewDataController {
     public String postNewReviewToDb(
             Model model,
             HttpSession session,
-            @RequestParam(PARAMETER_USER_NAME) String userName,
             @RequestParam(PARAMETER_COMMENT) String comment,
             @RequestParam(PARAMETER_SCORE) String score) {
 
         var aux = session.getAttribute(PARAMETER_GAME_NAME);
         var gameName = aux == null ? null : aux.toString();
-        if (userName.isEmpty()) {
-            model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Username field cannot be empty!");
-            return TEMPLATE_NEW_REVIEW;
-        }
 
-        var exist_user = userRepository.findByUsername(userName);
-        if (!exist_user.isPresent()) {
-            model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "User " + userName + " does not exists!");
+        var user = (User) model.getAttribute(LoginStaticValues.CACHE_LOGGED_USER);
+        if (user == null) {
+            model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "You're not logged in!");
             return TEMPLATE_NEW_REVIEW;
         }
 
@@ -66,12 +61,12 @@ public class ReviewDataController {
         }
 
         var exist_game = gameRepository.findByName(gameName);
-        if (!exist_game.isPresent()) {
+        if (exist_game.isEmpty()) {
             model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Game " + gameName + " does not exists!");
             return TEMPLATE_NEW_REVIEW;
         }
 
-        if (comment.isEmpty() || comment.length() < 50) {
+        if (comment.length() < 50) {
             model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Comment field cannot be under 50 characters!");
             return TEMPLATE_NEW_REVIEW;
         }
@@ -91,7 +86,7 @@ public class ReviewDataController {
                 score_int,
                 comment,
                 new Date(),
-                exist_user.get(),
+                user,
                 exist_game.get()
         );
 
