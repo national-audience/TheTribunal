@@ -49,9 +49,14 @@
     {{/games}}
     {{#loggedUser}}
     <p>
+        {{#following_this_studio}}
+        {{> snippet/unfollow_button}}
+        {{/following_this_studio}}
+        {{^following_this_studio}}
         {{> snippet/follow_button}}
-    <p>
+        {{/following_this_studio}}
         {{#admin}}
+    <p>
         {{> snippet/delete_button}}
         {{/admin}}
         {{/loggedUser}}

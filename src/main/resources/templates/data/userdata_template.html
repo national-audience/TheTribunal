@@ -72,12 +72,19 @@
     {{/reviews}}
     {{#loggedUser}}
     <p>
-    {{> snippet/follow_button}}
+        {{^own_page}}
+        {{#following_this_user}}
+        {{> snippet/unfollow_button}}
+        {{/following_this_user}}
+        {{^following_this_user}}
+        {{> snippet/follow_button}}
+        {{/following_this_user}}
+        {{/own_page}}
+        {{#admin}}
     <p>
-    {{#admin}}
-    {{> snippet/delete_button}}
-    {{/admin}}
-    {{/loggedUser}}
+        {{> snippet/delete_button}}
+        {{/admin}}
+        {{/loggedUser}}
 </main>
 </body>
 {{/user}}

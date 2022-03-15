@@ -34,10 +34,13 @@ public class StudioDataController {
         var optional = studioRepository.findByName(inName);
 
         if (optional.isPresent()) {
+            var user = (User) model.getAttribute(LoginStaticValues.CACHE_LOGGED_USER);
             var studio = optional.get();
             String count_followers = String.valueOf(studio.getStudioFollowedByUsers().size());
             model.addAttribute(ATTRIBUTE_STUDIO_FOLLOWERS, count_followers);
             model.addAttribute(ATTRIBUTE_STUDIO_NAME, studio);
+            model.addAttribute(ATTRIBUTE_STUDIO_FOLLOWING,
+                    user != null && user.getStudiosFollow().contains(studio));
             model.addAttribute(ATTRIBUTE_TYPE, "studio");
             model.addAttribute(ATTRIBUTE_DATA, inName);
             return TEMPLATE_STUDIO_DATA;
@@ -52,18 +55,18 @@ public class StudioDataController {
         var optional = studioRepository.findByName(inName);
         if (optional.isPresent()) {
             var studio = optional.get();
-            var follower = (User) model.getAttribute(LoginStaticValues.CACHE_LOGGED_USER);
+            var user = (User) model.getAttribute(LoginStaticValues.CACHE_LOGGED_USER);
 
-            if (follower == null) {
+            if (user == null) {
                 model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Follower field cannot be empty!");
             } else {
-                var studioFollow = follower.getStudiosFollow();
+                var studioFollow = user.getStudiosFollow();
                 if (!studioFollow.contains(studio)) {
                     studioFollow.add(studio);
-                    userRepository.save(follower);
+                    userRepository.save(user);
                 } else {
                     model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "The user "
-                            + follower.getName()
+                            + user.getName()
                             + " is following this studio already!");
                 }
             }
@@ -71,6 +74,43 @@ public class StudioDataController {
             String count_followers = String.valueOf(studio.getStudioFollowedByUsers().size());
             model.addAttribute(ATTRIBUTE_STUDIO_FOLLOWERS, count_followers);
             model.addAttribute(ATTRIBUTE_STUDIO_NAME, studio);
+            model.addAttribute(ATTRIBUTE_STUDIO_FOLLOWING,
+                    user != null && user.getStudiosFollow().contains(studio));
+            model.addAttribute(ATTRIBUTE_TYPE, "studio");
+            model.addAttribute(ATTRIBUTE_DATA, inName);
+            return TEMPLATE_STUDIO_DATA;
+        } else {
+            return TEMPLATE_STUDIO_DATA_NOT_FOUND;
+        }
+    }
+
+    @PostMapping(END_POINT_UNFOLLOW_STUDIO_DATA + "/{inName}")
+    public String unfollowStudioData(Model model, @PathVariable(PARAMETER_STUDIO) String inName) {
+
+        var optional = studioRepository.findByName(inName);
+        if (optional.isPresent()) {
+            var studio = optional.get();
+            var user = (User) model.getAttribute(LoginStaticValues.CACHE_LOGGED_USER);
+
+            if (user == null) {
+                model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Follower field cannot be empty!");
+            } else {
+                var studioFollow = user.getStudiosFollow();
+                if (studioFollow.contains(studio)) {
+                    studioFollow.remove(studio);
+                    userRepository.save(user);
+                } else {
+                    model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "The user "
+                            + user.getName()
+                            + " is not following this studio!");
+                }
+            }
+
+            String count_followers = String.valueOf(studio.getStudioFollowedByUsers().size());
+            model.addAttribute(ATTRIBUTE_STUDIO_FOLLOWERS, count_followers);
+            model.addAttribute(ATTRIBUTE_STUDIO_NAME, studio);
+            model.addAttribute(ATTRIBUTE_STUDIO_FOLLOWING,
+                    user != null && user.getStudiosFollow().contains(studio));
             model.addAttribute(ATTRIBUTE_TYPE, "studio");
             model.addAttribute(ATTRIBUTE_DATA, inName);
             return TEMPLATE_STUDIO_DATA;

@@ -1,11 +1,6 @@
 package io.github.nationalaudience.thetribunal;
 
-import io.github.nationalaudience.thetribunal.constant.Authorities;
-import io.github.nationalaudience.thetribunal.constant.GameDataStaticValues;
-import io.github.nationalaudience.thetribunal.constant.LoginStaticValues;
-import io.github.nationalaudience.thetribunal.constant.StudioDataStaticValues;
-import io.github.nationalaudience.thetribunal.constant.ReviewsStaticValues;
-import io.github.nationalaudience.thetribunal.constant.UserDataStaticValues;
+import io.github.nationalaudience.thetribunal.constant.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,25 +15,29 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .hasAnyAuthority(Authorities.ADMIN);
         http.authorizeRequests().antMatchers(StudioDataStaticValues.END_POINT_POST_NEW_STUDIO_TO_DB)
                 .hasAnyAuthority(Authorities.ADMIN);
-        http.authorizeRequests().antMatchers(StudioDataStaticValues.END_POINT_DELETE_STUDIO_DATA)
+        http.authorizeRequests().antMatchers(StudioDataStaticValues.END_POINT_DELETE_STUDIO_DATA+ "/*")
                 .hasAnyAuthority(Authorities.ADMIN);
         http.authorizeRequests().antMatchers(GameDataStaticValues.END_POINT_NEW_GAME_TO_DB)
                 .hasAnyAuthority(Authorities.ADMIN);
         http.authorizeRequests().antMatchers(GameDataStaticValues.END_POINT_POST_NEW_GAME_TO_DB)
                 .hasAnyAuthority(Authorities.ADMIN);
-        http.authorizeRequests().antMatchers(GameDataStaticValues.END_POINT_DELETE_GAME_DATA)
+        http.authorizeRequests().antMatchers(GameDataStaticValues.END_POINT_DELETE_GAME_DATA+ "/*")
                 .hasAnyAuthority(Authorities.ADMIN);
 
-        http.authorizeRequests().antMatchers(UserDataStaticValues.END_POINT_DELETE_USER_DATA)
+        http.authorizeRequests().antMatchers(UserDataStaticValues.END_POINT_DELETE_USER_DATA+ "/*")
                 .hasAnyAuthority(Authorities.ADMIN);
 
         http.authorizeRequests().antMatchers(ReviewsStaticValues.END_POINT_NEW_REVIEW_TO_DB)
                 .authenticated();
         http.authorizeRequests().antMatchers(ReviewsStaticValues.END_POINT_POST_NEW_REVIEW_TO_DB)
                 .authenticated();
-        http.authorizeRequests().antMatchers(UserDataStaticValues.END_POINT_FOLLOW_USER_DATA)
+        http.authorizeRequests().antMatchers(UserDataStaticValues.END_POINT_FOLLOW_USER_DATA+ "/*")
                 .authenticated();
-        http.authorizeRequests().antMatchers(StudioDataStaticValues.END_POINT_FOLLOW_STUDIO_DATA)
+        http.authorizeRequests().antMatchers(UserDataStaticValues.END_POINT_UNFOLLOW_USER_DATA+ "/*")
+                .authenticated();
+        http.authorizeRequests().antMatchers(StudioDataStaticValues.END_POINT_FOLLOW_STUDIO_DATA+ "/*")
+                .authenticated();
+        http.authorizeRequests().antMatchers(StudioDataStaticValues.END_POINT_UNFOLLOW_STUDIO_DATA + "/*")
                 .authenticated();
 
         http.authorizeRequests().anyRequest().permitAll();
