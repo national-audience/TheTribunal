@@ -28,15 +28,9 @@ public class LoginController {
         return TEMPLATE_LOGIN;
     }
 
-    @PostMapping(END_POINT_POST_LOGIN)
-    public String postLogin(
-            Model model,
-            @RequestParam(PARAMETER_USER) String postUser,
-            @RequestParam(PARAMETER_PASSWORD) String postPassword
-    ) {
-        var user = userRepository.findByUsername(postUser);
-        model.addAttribute(ATTRIBUTE_USER_FOUND, user.isPresent());
-        model.addAttribute(ATTRIBUTE_USER_NOT_FOUND, user.isEmpty());
+    @GetMapping(END_POINT_ERROR_LOGIN)
+    public String postLogin(Model model) {
+        model.addAttribute(ATTRIBUTE_INVALID_LOGIN, true);
         return TEMPLATE_LOGIN;
     }
 

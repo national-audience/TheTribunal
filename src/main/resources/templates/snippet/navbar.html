@@ -5,6 +5,8 @@
                 Ranking
             </a>
         </li>
+        {{#loggedUser}}
+        {{#admin}}
         <li>
             <a href="/newStudioToDb">
                 Add new studio
@@ -15,6 +17,15 @@
                 Add new game
             </a>
         </li>
+        {{/admin}}
+        <li>
+            <a href="/logout">
+                Logout
+            </a>
+        </li>
+        <li>
+        {{/loggedUser}}
+        {{^loggedUser}}
         <li>
             <a href="/login">
                 Login
@@ -25,5 +36,6 @@
                 Sign up
             </a>
         </li>
+        {{/loggedUser}}
     </ul>
 </nav>

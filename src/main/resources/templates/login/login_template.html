@@ -8,7 +8,7 @@
 {{> snippet/header}}
 <main>
     <h2>Log in into your account</h2>
-    <form action="/postLogin" method="post">
+    <form action="/login" method="post">
         <p>Username:</p>
         <label>
             <input type='text' name='user'>
@@ -21,17 +21,11 @@
             <input type='submit' value='Send'/>
         </p>
     </form>
-
-    {{#userFound}}
+    {{#invalidLogin}}
     <p>
-        User found, but logins are not implemented yet!
+        Incorrect user or password
     </p>
-    {{/userFound}}
-    {{#userNotFound}}
-    <p>
-        User not found!
-    </p>
-    {{/userNotFound}}
+    {{/invalidLogin}}
 </main>
 </body>
 </html>

@@ -32,47 +32,30 @@
     {{^studios}}
     This game does not have a known author LOL
     {{/studios}}
-
-    </p>
     <p>
         Reviews:
     <ul>
-        {{#reviews}}
-        <li>
-            <form action="/deleteReviewToDb" method="post">
-                {{#game}}
-                <input type='hidden' name='gameName' value="{{name}}">
-                {{/game}}
-                {{#user}}
-                <input type='hidden' name='userName' value="{{username}}">
-                {{/user}}
-                <input type='hidden' name='deleteReturnGame' value=true>
-                <input type='submit' value='Delete review'>
-            </form>
-            <p>
-                {{#user}} <a href="/user/{{username}}"> {{name}}</a> {{/user}} about
-                {{#game}} {{name}} {{/game}}:
-            </p>
-            <p>
-                {{comment}}
-            </p>
-            <p>
-                Score: {{score}} | Date: {{date}}
-            </p>
-        </li>
-        {{/reviews}}
+        {{#game_reviews}}
+        {{> snippet/review}}
+        {{/game_reviews}}
     </ul>
 
     {{^reviews}}
     It seems that this game does not have any reviews yet.
     {{/reviews}}
+    {{#loggedUser}}
     <p>
     <form action="/newReviewToDb" method="post">
+        {{#game}}
         <input type='hidden' name='gameName' value="{{name}}">
+        {{/game}}
         <input type='submit' value='Add new review.'>
     </form>
+    {{#admin}}
     <p>
-    {{> snippet/delete_button}}
+        {{> snippet/delete_button}}
+        {{/admin}}
+        {{/loggedUser}}
 </main>
 </body>
 {{/game}}

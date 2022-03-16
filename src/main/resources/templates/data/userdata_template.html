@@ -41,39 +41,29 @@
     <p>
         Reviews:
     <ul>
-        {{#reviews}}
-        <li>
-            <form action="/deleteReviewToDb" method="post">
-                {{#game}}
-                <input type='hidden' name='gameName' value="{{name}}">
-                {{/game}}
-                {{#user}}
-                <input type='hidden' name='userName' value="{{username}}">
-                {{/user}}
-                <input type='hidden' name='deleteReturnGame' value=false>
-                <input type='submit' value='Delete review'>
-            </form>
-            <p>
-                {{#user}} {{name}} {{/user}} about
-                {{#game}} <a href="/game/{{name}}"> {{name}}</a>{{/game}}:
-            </p>
-            <p>
-                {{comment}}
-            </p>
-            <p>
-                Score: {{score}} | Date: {{date}}
-            </p>
-        </li>
-        {{/reviews}}
+        {{#user_reviews}}
+        {{> snippet/review}}
+        {{/user_reviews}}
     </ul>
 
     {{^reviews}}
     It seems that this user has not made any reviews yet.
     {{/reviews}}
+    {{#loggedUser}}
     <p>
-    {{> snippet/follow_button}}
+        {{^own_page}}
+        {{#following_this_user}}
+        {{> snippet/unfollow_button}}
+        {{/following_this_user}}
+        {{^following_this_user}}
+        {{> snippet/follow_button}}
+        {{/following_this_user}}
+        {{/own_page}}
+        {{#admin}}
     <p>
-    {{> snippet/delete_button}}
+        {{> snippet/delete_button}}
+        {{/admin}}
+        {{/loggedUser}}
 </main>
 </body>
 {{/user}}

@@ -1,8 +1,11 @@
 package io.github.nationalaudience.thetribunal.controller;
 
+import io.github.nationalaudience.thetribunal.constant.LoginStaticValues;
 import io.github.nationalaudience.thetribunal.entity.Game;
+import io.github.nationalaudience.thetribunal.entity.User;
 import io.github.nationalaudience.thetribunal.repository.GameRepository;
 import io.github.nationalaudience.thetribunal.repository.StudioRepository;
+import io.github.nationalaudience.thetribunal.util.ReviewUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,12 +34,15 @@ public class GameDataController {
     }
 
     @GetMapping(END_POINT_GAME_DATA)
-    public String userData(Model model, @PathVariable(PARAMETER_GAME) String inName) {
+    public String gameData(Model model, @PathVariable(PARAMETER_GAME) String inName) {
         var optional = gameRepository.findByName(inName);
 
         if (optional.isPresent()) {
+            var loggedUser = (User) model.getAttribute(LoginStaticValues.CACHE_LOGGED_USER);
+
             var game = optional.get();
             model.addAttribute(ATTRIBUTE_GAME_NAME, game);
+            model.addAttribute(ATTRIBUTE_GAME_REVIEWS, ReviewUtils.makeReviewSnapshot(game.getReviews(), loggedUser));
             model.addAttribute(ATTRIBUTE_TYPE, "game");
             model.addAttribute(ATTRIBUTE_DATA, inName);
             return TEMPLATE_GAME_DATA;
@@ -75,7 +81,7 @@ public class GameDataController {
             return TEMPLATE_NEW_GAME_TO_DB;
         }
 
-        if(date.isEmpty()){
+        if (date.isEmpty()) {
             model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Release date field cannot be empty!");
             return TEMPLATE_NEW_GAME_TO_DB;
         }
@@ -109,13 +115,11 @@ public class GameDataController {
 
         gameRepository.save(newGame);
 
-        System.out.println("GAME ADDED");
-
         model.addAttribute(ATTRIBUTE_GAME_NAME, name);
         return TEMPLATE_POST_NEW_GAME_TO_DB;
     }
 
-    @PostMapping(END_POINT_DELETE_GAME_DATA)
+    @PostMapping(END_POINT_DELETE_GAME_DATA + "/{inName}")
     public String deleteStudioData(Model model, @PathVariable(PARAMETER_GAME) String inName) {
 
         var game = gameRepository.findByName(inName);
