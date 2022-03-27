@@ -19,6 +19,8 @@ public class User implements Serializable {
     private String username;
     private String passwordHash;
 
+    private String email;
+
     private String name;
     private String description;
 
@@ -46,6 +48,7 @@ public class User implements Serializable {
     public User(String username,
                 String passwordHash,
                 String name,
+                String email,
                 String description,
                 boolean darkMode,
                 String language,
@@ -56,6 +59,7 @@ public class User implements Serializable {
                 List<Review> reviews) {
         this.username = username;
         this.passwordHash = passwordHash;
+        this.email = email;
         this.name = name;
         this.description = description;
         this.darkMode = darkMode;
@@ -82,6 +86,10 @@ public class User implements Serializable {
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
 
     public String getName() {
         return name;
