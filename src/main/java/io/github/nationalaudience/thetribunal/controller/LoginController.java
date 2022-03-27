@@ -46,7 +46,8 @@ public class LoginController {
             @RequestParam(PARAMETER_USER) String postUser,
             @RequestParam(PARAMETER_NAME) String postName,
             @RequestParam(PARAMETER_PASSWORD) String postPassword,
-            @RequestParam(PARAMETER_PASSWORD_CONFIRM) String postPasswordConfirm
+            @RequestParam(PARAMETER_PASSWORD_CONFIRM) String postPasswordConfirm,
+            @RequestParam(PARAMETER_EMAIL) String postEmail
     ) {
 
         model.addAttribute(PARAMETER_USER, postUser);
@@ -74,6 +75,11 @@ public class LoginController {
             return TEMPLATE_SIGNUP;
         }
 
+        if (postEmail.isEmpty()) {
+            model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "Email field cannot be empty!");
+            return TEMPLATE_SIGNUP;
+        }
+
         var user = userRepository.findByUsername(postUser);
         if (user.isPresent()) {
             model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "The user "
@@ -82,10 +88,19 @@ public class LoginController {
             return TEMPLATE_SIGNUP;
         }
 
+        var checkEmail = userRepository.findAllEmails();
+        if (checkEmail.contains(checkEmail)) {
+            model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "The email "
+                    + postEmail
+                    + " is already registered!");
+            return TEMPLATE_SIGNUP;
+        }
+
         var newUser = new User(
                 postUser,
                 BCrypt.hashpw(postPassword, BCrypt.gensalt()),
                 postName,
+                postEmail,
                 "",
                 false,
                 "en-us",

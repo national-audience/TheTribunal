@@ -3,12 +3,16 @@ package io.github.nationalaudience.thetribunal.controller;
 import io.github.nationalaudience.thetribunal.constant.LoginStaticValues;
 import io.github.nationalaudience.thetribunal.entity.User;
 import io.github.nationalaudience.thetribunal.repository.UserRepository;
+import io.github.nationalaudience.thetribunal.services.EmailService;
 import io.github.nationalaudience.thetribunal.util.ReviewUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.net.URISyntaxException;
 
 import static io.github.nationalaudience.thetribunal.constant.GameDataStaticValues.ATTRIBUTE_ERROR_MESSAGE;
 import static io.github.nationalaudience.thetribunal.constant.GenericDataStaticValues.*;
@@ -16,6 +20,9 @@ import static io.github.nationalaudience.thetribunal.constant.UserDataStaticValu
 
 @Controller
 public class UserDataController {
+
+    @Autowired
+    EmailService emailService;
 
     private final UserRepository userRepository;
 
@@ -51,7 +58,7 @@ public class UserDataController {
     }
 
     @PostMapping(END_POINT_FOLLOW_USER_DATA + "/{inUsername}")
-    public String newFollowerUserData(Model model, @PathVariable(PARAMETER_USER) String inUsername) {
+    public String newFollowerUserData(Model model, @PathVariable(PARAMETER_USER) String inUsername) throws URISyntaxException {
         var optional = userRepository.findByUsername(inUsername);
 
         if (optional.isPresent()) {
@@ -88,6 +95,9 @@ public class UserDataController {
             model.addAttribute(ATTRIBUTE_USER_OWN_PAGE, follower == user);
             model.addAttribute(ATTRIBUTE_DATA, inUsername);
             model.addAttribute(ATTRIBUTE_TYPE, "user");
+
+            emailService.sendFollowedByUserMail(follower.getUsername(), user.getEmail());
+
             return TEMPLATE_USER_DATA;
         } else {
             return TEMPLATE_USER_DATA_NOT_FOUND;

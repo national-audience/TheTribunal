@@ -12,6 +12,7 @@ public class LoginStaticValues {
     public static final String PARAMETER_NAME = "name";
     public static final String PARAMETER_PASSWORD = "password";
     public static final String PARAMETER_PASSWORD_CONFIRM = "passwordConfirm";
+    public static final String PARAMETER_EMAIL = "email";
 
     public static final String ATTRIBUTE_INVALID_LOGIN = "invalidLogin";
     public static final String ATTRIBUTE_ERROR_MESSAGE = "errorMessage";
