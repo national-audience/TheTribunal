@@ -35,10 +35,10 @@ public class EmailService {
         mail.add(emailSubject);
         mail.add(emailBody);
 
-        sendMail(follower, mail, url);
+        sendMail(mail, url);
     }
 
-    private void sendMail(String follower, List<String> mail, URI url) {
+    private void sendMail(List<String> mail, URI url) {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders head = new HttpHeaders();
