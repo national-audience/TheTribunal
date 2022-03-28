@@ -10,43 +10,40 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 
-import static io.github.nationalaudience.thetribunal.constant.InternalServicesStaticValues.*;
+import static io.github.nationalaudience.thetribunal.constant.InternalServicesStaticValues.URL_FOLLOW_BY_USER_MAIL;
 
 @Service
 @EnableAsync
 public class EmailService {
 
-    @Async
-    public void sendFollowedByUserMail(String follower, String emailAddress) throws URISyntaxException {
-
-        URI url = new URI(URL_FOLLOW_BY_USER_MAIL);
-
-        List<String> mail = new ArrayList<>();
-
-        String emailSubject = "Someone is interested in your opinions...";
-
-        String emailBody = ("You got a new follower in TheTribunal!\n");
-        emailBody += (follower + " is interested in your opinions!\n");
-
-        mail.add(emailAddress);
-        mail.add(emailSubject);
-        mail.add(emailBody);
-
-        sendMail(mail, url);
+    public record EmailRequest(String to, String subject, String body) {
     }
 
-    private void sendMail(List<String> mail, URI url) {
-        RestTemplate restTemplate = new RestTemplate();
+    public void sendFollowedByUserMail(String follower, String emailAddress)
+            throws URISyntaxException {
+        var url = new URI(URL_FOLLOW_BY_USER_MAIL);
+        var request = new EmailRequest(
+                emailAddress,
+                "Someone is interested in your opinions...",
+                """
+                        You got a new follower in TheTribunal!
+                                                
+                        %s is interested in your opinions!                        
+                        """.formatted(follower)
+        );
+        sendMail(request, url);
+    }
 
-        HttpHeaders head = new HttpHeaders();
+    @Async
+    void sendMail(EmailRequest request, URI url) {
+        var restTemplate = new RestTemplate();
+        var head = new HttpHeaders();
         head.setContentType(MediaType.APPLICATION_JSON);
 
-        HttpEntity<List> reqEntity = new HttpEntity<>(mail, head);
+        var reqEntity = new HttpEntity<>(request, head);
 
-        restTemplate.postForEntity(url, reqEntity, String.class);
+        restTemplate.postForEntity(url, reqEntity, EmailRequest.class);
     }
 
 
