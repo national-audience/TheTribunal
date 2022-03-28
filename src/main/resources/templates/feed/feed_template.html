@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feed</title>
+</head>
+<body>
+{{> snippet/header}}
+<p>
+    Feed:
+<ul>
+    {{#user_reviews}}
+    <li>
+        <p>
+            {{username}} about <a href="/game/{{game}}">{{game}}</a>:
+        </p>
+        <p>
+            {{comment}}
+        </p>
+        <p>
+            Score: {{score}} | Date: {{date}}
+        </p>
+    </li>
+    {{/user_reviews}}
+</ul>
+</body>
+</html>
