@@ -21,13 +21,17 @@ import static io.github.nationalaudience.thetribunal.constant.InternalServicesSt
 public class FeedService {
 
 
-
-    public List<FeedResponse> getFeedFromInternalService() throws URISyntaxException {
+    public List<FeedResponse> getFeedFromInternalService(String loggedUser) throws URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
 
         URI url = new URI(URL_FEED);
 
-        FeedResponse[] data = restTemplate.getForObject(url, FeedResponse[].class);
+        HttpHeaders head = new HttpHeaders();
+        head.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> reqEntity = new HttpEntity<>(loggedUser, head);
+
+        FeedResponse[] data = restTemplate.postForObject(url, reqEntity, FeedResponse[].class);
 
         assert data != null;
 

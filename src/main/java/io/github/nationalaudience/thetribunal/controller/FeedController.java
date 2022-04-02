@@ -30,9 +30,10 @@ public class FeedController {
 
     @GetMapping(value = "/feed")
     public String generateFeed(Model model) throws URISyntaxException {
-        //var user = (User) model.getAttribute(LoginStaticValues.CACHE_LOGGED_USER);
+        var user = (User) model.getAttribute(LoginStaticValues.CACHE_LOGGED_USER);
 
-        List<FeedResponse> feedResponses = feedService.getFeedFromInternalService();
+        assert user != null;
+        List<FeedResponse> feedResponses = feedService.getFeedFromInternalService(user.getUsername());
 
         model.addAttribute("user_reviews", feedResponses);
 
