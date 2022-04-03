@@ -51,19 +51,24 @@
     {{/reviews}}
     {{#loggedUser}}
     <p>
+        {{#own_page}}
+        <a href="/settings">
+            Settings
+        </a>
+        {{/own_page}}
         {{^own_page}}
-        {{#following_this_user}}
-        {{> snippet/unfollow_button}}
-        {{/following_this_user}}
-        {{^following_this_user}}
-        {{> snippet/follow_button}}
-        {{/following_this_user}}
+            {{#following_this_user}}
+                {{> snippet/unfollow_button}}
+            {{/following_this_user}}
+            {{^following_this_user}}
+                {{> snippet/follow_button}}
+            {{/following_this_user}}
         {{/own_page}}
         {{#admin}}
     <p>
         {{> snippet/delete_button}}
         {{/admin}}
-        {{/loggedUser}}
+    {{/loggedUser}}
 </main>
 </body>
 {{/user}}

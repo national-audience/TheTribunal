@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+{{#user}}
+<head>
+    <meta charset="UTF-8">
+    <title>Settings {{username}}</title>
+</head>
+<body>
+{{> snippet/header}}
+<main>
+    {{#error}}
+    <p>
+        {{.}}
+    </p>
+    {{/error}}
+
+    <p></p>
+
+    <h2>Settings</h2>
+
+
+    <form action="/settings/confirm" method="post">
+        <p>
+            Change your name:
+        </p>
+        <label>
+            <input type='text' name='newName' placeholder="New name...">
+        </label>
+        <p>
+            Change your description:
+        </p>
+        <label>
+            <input type='text' name='newDescription' placeholder="New description...">
+        </label>
+        <p>
+            Change your password:
+        </p>
+        <label>
+            <input type='text' name='newPassword' placeholder="New password...">
+        </label>
+        <p>
+            Change your mail:
+        </p>
+        <label>
+            <input type='text' name='newMail' placeholder="New mail...">
+        </label>
+        <input type='submit' value='Change'/>
+    </form>
+
+</main>
+</body>
+{{/user}}
+{{^user}}
+<head>
+    <meta charset="UTF-8">
+    <title>No user</title>
+</head>
+<body>
+{{> snippet/header}}
+<main>
+    <h2>
+        You must be logged in to access the settings.
+    </h2>
+</main>
+</body>
+{{/user}}
+</html>
