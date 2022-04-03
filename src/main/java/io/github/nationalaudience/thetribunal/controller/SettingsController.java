@@ -79,7 +79,7 @@ public class SettingsController {
         if(!newMail.equals(""))
         {
             var checkEmail = userRepository.findAllEmails();
-            if (checkEmail.contains(checkEmail)) {
+            if (checkEmail.contains(newMail)) {
                 model.addAttribute(ATTRIBUTE_ERROR, "The email "
                         + newMail
                         + " is already registered!");

@@ -89,7 +89,7 @@ public class LoginController {
         }
 
         var checkEmail = userRepository.findAllEmails();
-        if (checkEmail.contains(checkEmail)) {
+        if (checkEmail.contains(postEmail)) {
             model.addAttribute(ATTRIBUTE_ERROR_MESSAGE, "The email "
                     + postEmail
                     + " is already registered!");

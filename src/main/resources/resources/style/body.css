@@ -26,6 +26,7 @@ main input[type=text],
 main input[type=password],
 main input[type=date],
 main input[type=number],
+main input[type=email],
 main select {
     box-sizing: border-box;
     border-radius: 4px;
