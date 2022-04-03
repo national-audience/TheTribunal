@@ -1,3 +1,4 @@
 <form action="/{{type}}/follow/{{data}}" method="post">
     <input type='submit' value='Follow {{data}}'>
+    <input type="hidden" name="_csrf" value="{{token}}"/>
 </form>
