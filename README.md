@@ -69,7 +69,7 @@ see the ratings of a user and the average scores of a game or a studio.
 - Install MySQL executing 'sudo apt install mysql-server'
 - Start the MySQL service executing 'sudo service mysql start'
 - Configure MySQL executing 'sudo mysql_secure_installation'. An installation wizard will be open.
-- Enter the MySQL console executing 'sudo -u root -p'
+- Enter the MySQL console executing 'mysql -u root -p'
 - Create a new database executing 'create database <database_name>;'
 - Create a new user executing 'CREATE USER '<database_user>'@'localhost' IDENTIFIED BY '<database_password>';'
 - Add permissions to the new user executing 'GRANT ALL PRIVILEGES ON `<database_name>` . * TO '<database_user>'
@@ -140,7 +140,7 @@ spring.mail.password=<application_email_password>
 - Inicializar el servicio MySQL usando el comando 'sudo service mysql start'
 - Configurar MySQL usando el comando 'sudo mysql_secure_installation'. Se abrirá un pequeño script para configurar los
   aspectos básicos de la base de datos.
-- Acceder a MySQL usando el comando 'sudo -u root -p'
+- Acceder a MySQL usando el comando 'mysql -u root -p'
 - Crear una base de datos usando el comando 'create database <database_name>;'
 - Crear un usuario usando el comando 'CREATE USER '<database_user>'@'localhost' IDENTIFIED BY '<database_password>';'
 - Dar permisos al usuario para usar la base de datos usando el comando: 'GRANT ALL PRIVILEGES ON `<database_name>` . *
