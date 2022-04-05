@@ -4,6 +4,7 @@ import io.github.nationalaudience.thetribunal.constant.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -15,27 +16,27 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .hasAnyAuthority(Authorities.ADMIN);
         http.authorizeRequests().antMatchers(StudioDataStaticValues.END_POINT_POST_NEW_STUDIO_TO_DB)
                 .hasAnyAuthority(Authorities.ADMIN);
-        http.authorizeRequests().antMatchers(StudioDataStaticValues.END_POINT_DELETE_STUDIO_DATA+ "/*")
+        http.authorizeRequests().antMatchers(StudioDataStaticValues.END_POINT_DELETE_STUDIO_DATA + "/*")
                 .hasAnyAuthority(Authorities.ADMIN);
         http.authorizeRequests().antMatchers(GameDataStaticValues.END_POINT_NEW_GAME_TO_DB)
                 .hasAnyAuthority(Authorities.ADMIN);
         http.authorizeRequests().antMatchers(GameDataStaticValues.END_POINT_POST_NEW_GAME_TO_DB)
                 .hasAnyAuthority(Authorities.ADMIN);
-        http.authorizeRequests().antMatchers(GameDataStaticValues.END_POINT_DELETE_GAME_DATA+ "/*")
+        http.authorizeRequests().antMatchers(GameDataStaticValues.END_POINT_DELETE_GAME_DATA + "/*")
                 .hasAnyAuthority(Authorities.ADMIN);
 
-        http.authorizeRequests().antMatchers(UserDataStaticValues.END_POINT_DELETE_USER_DATA+ "/*")
+        http.authorizeRequests().antMatchers(UserDataStaticValues.END_POINT_DELETE_USER_DATA + "/*")
                 .hasAnyAuthority(Authorities.ADMIN);
 
         http.authorizeRequests().antMatchers(ReviewsStaticValues.END_POINT_NEW_REVIEW_TO_DB)
                 .authenticated();
         http.authorizeRequests().antMatchers(ReviewsStaticValues.END_POINT_POST_NEW_REVIEW_TO_DB)
                 .authenticated();
-        http.authorizeRequests().antMatchers(UserDataStaticValues.END_POINT_FOLLOW_USER_DATA+ "/*")
+        http.authorizeRequests().antMatchers(UserDataStaticValues.END_POINT_FOLLOW_USER_DATA + "/*")
                 .authenticated();
-        http.authorizeRequests().antMatchers(UserDataStaticValues.END_POINT_UNFOLLOW_USER_DATA+ "/*")
+        http.authorizeRequests().antMatchers(UserDataStaticValues.END_POINT_UNFOLLOW_USER_DATA + "/*")
                 .authenticated();
-        http.authorizeRequests().antMatchers(StudioDataStaticValues.END_POINT_FOLLOW_STUDIO_DATA+ "/*")
+        http.authorizeRequests().antMatchers(StudioDataStaticValues.END_POINT_FOLLOW_STUDIO_DATA + "/*")
                 .authenticated();
         http.authorizeRequests().antMatchers(StudioDataStaticValues.END_POINT_UNFOLLOW_STUDIO_DATA + "/*")
                 .authenticated();
@@ -49,8 +50,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin().passwordParameter(LoginStaticValues.PARAMETER_PASSWORD);
         http.formLogin().failureUrl(LoginStaticValues.END_POINT_ERROR_LOGIN);
 
-        http.logout().logoutUrl(LoginStaticValues.END_POINT_LOGOUT);
-        http.logout().logoutSuccessUrl("/");
+        http.logout().logoutRequestMatcher(new AntPathRequestMatcher(LoginStaticValues.END_POINT_LOGOUT))
+                .logoutSuccessUrl("/").deleteCookies("JSESSIONID").invalidateHttpSession(true);
 
         //http.csrf().disable();
     }
