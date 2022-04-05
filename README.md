@@ -127,6 +127,15 @@ spring.mail.password=<application_email_password>
 
 - Execute 'screen -S TheTribunalFeed' to open a new shell.
 - Go to the folder where the service's binary is located.
+- Create a new file named 'application.properties' with the following parameters:
+
+```properties
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+spring.datasource.url=jdbc:mysql://localhost:3306/<database_name>
+spring.datasource.username=<database_user>
+spring.datasource.password=<database_password>
+```
+
 - Run the binary executing 'java -jar <PATH.jar>'
 - Exit the shell using 'Ctrl+A' and then 'D'.
 
@@ -198,6 +207,17 @@ spring.mail.password=<application_email_password>
 
 - Ejecutar el comando 'screen -S TheTribunalFeed' para abrir una nueva terminal.
 - Dirigirse a la carpeta donde el binario del servicio está situado.
+- Crear un archivo 'application.properties' e insertar los siguientes parámetros:
+
+```properties
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+spring.datasource.url=jdbc:mysql://localhost:3306/<database_name>
+spring.datasource.username=<database_user>
+spring.datasource.password=<database_password>
+server.ssl.key-store=<keystore_path>
+server.ssl.key-store-password=<keystore_password>
+```
+
 - Ejecutar el binario usando el comando 'java -jar <PATH.jar>'
 - Salir de la terminal usando la combinación de teclas 'Ctrl+A' y luego pulsando 'D'.
 
