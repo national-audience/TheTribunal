@@ -69,7 +69,7 @@ see the ratings of a user and the average scores of a game or a studio.
 - Install MySQL executing 'sudo apt install mysql-server'
 - Start the MySQL service executing 'sudo service mysql start'
 - Configure MySQL executing 'sudo mysql_secure_installation'. An installation wizard will be open.
-- Enter the MySQL console executing 'sudo -u root -p'
+- Enter the MySQL console executing 'mysql -u root -p'
 - Create a new database executing 'create database <database_name>;'
 - Create a new user executing 'CREATE USER '<database_user>'@'localhost' IDENTIFIED BY '<database_password>';'
 - Add permissions to the new user executing 'GRANT ALL PRIVILEGES ON `<database_name>` . * TO '<database_user>'
@@ -127,6 +127,15 @@ spring.mail.password=<application_email_password>
 
 - Execute 'screen -S TheTribunalFeed' to open a new shell.
 - Go to the folder where the service's binary is located.
+- Create a new file named 'application.properties' with the following parameters:
+
+```properties
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+spring.datasource.url=jdbc:mysql://localhost:3306/<database_name>
+spring.datasource.username=<database_user>
+spring.datasource.password=<database_password>
+```
+
 - Run the binary executing 'java -jar <PATH.jar>'
 - Exit the shell using 'Ctrl+A' and then 'D'.
 
@@ -140,7 +149,7 @@ spring.mail.password=<application_email_password>
 - Inicializar el servicio MySQL usando el comando 'sudo service mysql start'
 - Configurar MySQL usando el comando 'sudo mysql_secure_installation'. Se abrirá un pequeño script para configurar los
   aspectos básicos de la base de datos.
-- Acceder a MySQL usando el comando 'sudo -u root -p'
+- Acceder a MySQL usando el comando 'mysql -u root -p'
 - Crear una base de datos usando el comando 'create database <database_name>;'
 - Crear un usuario usando el comando 'CREATE USER '<database_user>'@'localhost' IDENTIFIED BY '<database_password>';'
 - Dar permisos al usuario para usar la base de datos usando el comando: 'GRANT ALL PRIVILEGES ON `<database_name>` . *
@@ -198,6 +207,17 @@ spring.mail.password=<application_email_password>
 
 - Ejecutar el comando 'screen -S TheTribunalFeed' para abrir una nueva terminal.
 - Dirigirse a la carpeta donde el binario del servicio está situado.
+- Crear un archivo 'application.properties' e insertar los siguientes parámetros:
+
+```properties
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+spring.datasource.url=jdbc:mysql://localhost:3306/<database_name>
+spring.datasource.username=<database_user>
+spring.datasource.password=<database_password>
+server.ssl.key-store=<keystore_path>
+server.ssl.key-store-password=<keystore_password>
+```
+
 - Ejecutar el binario usando el comando 'java -jar <PATH.jar>'
 - Salir de la terminal usando la combinación de teclas 'Ctrl+A' y luego pulsando 'D'.
 
