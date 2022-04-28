@@ -18,6 +18,7 @@ dependencies {
     implementation 'org.springframework.session:spring-session-core'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor'
     implementation 'org.mindrot:jbcrypt:0.4'
     implementation 'mysql:mysql-connector-java'
 

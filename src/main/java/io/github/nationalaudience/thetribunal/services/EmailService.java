@@ -1,5 +1,6 @@
 package io.github.nationalaudience.thetribunal.services;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -17,12 +18,16 @@ import static io.github.nationalaudience.thetribunal.constant.InternalServicesSt
 @EnableAsync
 public class EmailService {
 
+    @Value("${service.email}")
+    private String service;
+
+
     public record EmailRequest(String to, String subject, String body) {
     }
 
     public void sendFollowedByUserMail(String follower, String emailAddress)
             throws URISyntaxException {
-        var url = new URI(URL_FOLLOW_BY_USER_MAIL);
+        var url = new URI(service + URL_FOLLOW_BY_USER_MAIL);
         var request = new EmailRequest(
                 emailAddress,
                 "Someone is interested in your opinions...",

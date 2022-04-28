@@ -7,10 +7,35 @@ services:
     depends_on:
       - db
     environment:
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+      SPRING_JPA_HIBERNATE_DDL_AUTO: 'update'
+      SPRING_JPA_DATABASE-PLATFORM: 'org.hibernate.dialect.MySQL8Dialect'
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://db:3306/the_tribunal'
+      SPRING_DATASOURCE_USERNAME: 'the_tribunal'
+      SPRING_DATASOURCE_PASSWORD: 'patata123123'
+      SERVICE_EMAIL: 'http://email:3000'
+      SERVICE_FEED: 'http://feed:3000'
+  email:
+    image: nationalaudience/thetribunalemail
+    depends_on:
+      - web
+    environment:
+      EMAIL_USER: 'national.audience.app@gmail.com'
+      EMAIL_PASSWORD: 'PASSWORD'
+  feed:
+    image: nationalaudience/thetribunalfeed
+    depends_on:
+      - web
+    environment:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: 'update'
+      SPRING_JPA_DATABASE-PLATFORM: 'org.hibernate.dialect.MySQL8Dialect'
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://db:3306/the_tribunal'
+      SPRING_DATASOURCE_USERNAME: 'the_tribunal'
+      SPRING_DATASOURCE_PASSWORD: 'patata123123'
   db:
     image: mysql
     environment:
       MYSQL_DATABASE: 'the_tribunal'
       MYSQL_USER: 'the_tribunal'
-      MYSQL_ROOT_PASSWORD: 'patata123123'
+      MYSQL_PASSWORD: 'patata123123'
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: 'patataroot123123'
