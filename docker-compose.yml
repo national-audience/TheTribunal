@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  web:
+    image: nationalaudience/thetribunal
+    ports:
+      - "8443:8443"
+    depends_on:
+      - db
+    environment:
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+  db:
+    image: mysql
+    environment:
+      MYSQL_DATABASE: 'the_tribunal'
+      MYSQL_USER: 'the_tribunal'
+      MYSQL_ROOT_PASSWORD: 'patata123123'
