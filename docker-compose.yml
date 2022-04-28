@@ -1,9 +1,7 @@
 version: "3.9"
 services:
-  web:
+  web1:
     image: nationalaudience/thetribunal
-    ports:
-      - "8443:8443"
     depends_on:
       - db
     environment:
@@ -12,25 +10,58 @@ services:
       SPRING_DATASOURCE_URL: 'jdbc:mysql://db:3306/the_tribunal'
       SPRING_DATASOURCE_USERNAME: 'the_tribunal'
       SPRING_DATASOURCE_PASSWORD: 'patata123123'
-      SERVICE_EMAIL: 'http://email:3000'
-      SERVICE_FEED: 'http://feed:3000'
-  email:
-    image: nationalaudience/thetribunalemail
+      SERVICE_EMAIL: 'http://haproxy:3000'
+      SERVICE_FEED: 'http://haproxy:3001'
+  web2:
+    image: nationalaudience/thetribunal
     depends_on:
-      - web
-    environment:
-      EMAIL_USER: 'national.audience.app@gmail.com'
-      EMAIL_PASSWORD: 'PASSWORD'
-  feed:
-    image: nationalaudience/thetribunalfeed
-    depends_on:
-      - web
+      - db
     environment:
       SPRING_JPA_HIBERNATE_DDL_AUTO: 'update'
       SPRING_JPA_DATABASE-PLATFORM: 'org.hibernate.dialect.MySQL8Dialect'
       SPRING_DATASOURCE_URL: 'jdbc:mysql://db:3306/the_tribunal'
       SPRING_DATASOURCE_USERNAME: 'the_tribunal'
       SPRING_DATASOURCE_PASSWORD: 'patata123123'
+      SERVICE_EMAIL: 'http://haproxy:3000'
+      SERVICE_FEED: 'http://haproxy:3001'
+  email1:
+    image: nationalaudience/thetribunalemail
+    environment:
+      EMAIL_USER: 'national.audience.app@gmail.com'
+      EMAIL_PASSWORD: 'PASSWORD'
+  email2:
+    image: nationalaudience/thetribunalemail
+    environment:
+      EMAIL_USER: 'national.audience.app@gmail.com'
+      EMAIL_PASSWORD: 'PASSWORD'
+  feed1:
+    image: nationalaudience/thetribunalfeed
+    depends_on:
+      - db
+    environment:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: 'update'
+      SPRING_JPA_DATABASE-PLATFORM: 'org.hibernate.dialect.MySQL8Dialect'
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://db:3306/the_tribunal'
+      SPRING_DATASOURCE_USERNAME: 'the_tribunal'
+      SPRING_DATASOURCE_PASSWORD: 'patata123123'
+  feed2:
+    image: nationalaudience/thetribunalfeed
+    depends_on:
+      - db
+    environment:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: 'update'
+      SPRING_JPA_DATABASE-PLATFORM: 'org.hibernate.dialect.MySQL8Dialect'
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://db:3306/the_tribunal'
+      SPRING_DATASOURCE_USERNAME: 'the_tribunal'
+      SPRING_DATASOURCE_PASSWORD: 'patata123123'
+  haproxy:
+    image: haproxy
+    ports:
+      - "443:443"
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0
+    volumes:
+      - ./haproxy:/usr/local/etc/haproxy
   db:
     image: mysql
     environment:
