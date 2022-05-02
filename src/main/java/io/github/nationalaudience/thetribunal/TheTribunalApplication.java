@@ -17,7 +17,7 @@ public class TheTribunalApplication {
     public static void main(String[] args) {
         SpringApplication.run(TheTribunalApplication.class, args);
     }
-
+  
     @Bean
     public Config config(){
         var config = new Config();
