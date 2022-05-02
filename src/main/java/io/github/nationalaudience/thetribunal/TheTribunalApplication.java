@@ -17,16 +17,11 @@ public class TheTribunalApplication {
     public static void main(String[] args) {
         SpringApplication.run(TheTribunalApplication.class, args);
     }
-
+  
     @Bean
     public Config config(){
-        Config config = new Config();
-
-        JoinConfig joinConfig = config.getNetworkConfig().getJoin();
-
-        joinConfig.getMulticastConfig().setEnabled(false);
-        joinConfig.getTcpIpConfig().setEnabled(true).setMembers(List.of("127.0.0.1"));
-
+        var config = new Config();
+        config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(true);
         return config;
     }
 }
