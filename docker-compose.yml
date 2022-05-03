@@ -58,6 +58,7 @@ services:
     image: haproxy
     ports:
       - "443:443"
+      - "1936:1936"
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=0
     volumes:
