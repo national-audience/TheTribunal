@@ -12,19 +12,4 @@ import java.util.Optional;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
         Optional<Review> findByUserAndGame(User user, Game game);
 
-        @CacheEvict(value="feed", allEntries = true)
-        @Override
-        <S extends Review> List<S> saveAll(Iterable<S> entities);
-
-        @CacheEvict(value="feed", allEntries = true)
-        @Override
-        <S extends Review> S saveAndFlush(S entity);
-
-        @CacheEvict(value="feed", allEntries = true)
-        @Override
-        <S extends Review> List<S> saveAllAndFlush(Iterable<S> entities);
-
-        @CacheEvict(value="feed", allEntries = true)
-        @Override
-        <S extends Review> S save(S entity);
 }
