@@ -7,7 +7,7 @@ services:
     environment:
       SPRING_JPA_HIBERNATE_DDL_AUTO: 'update'
       SPRING_JPA_DATABASE-PLATFORM: 'org.hibernate.dialect.MySQL8Dialect'
-      SPRING_DATASOURCE_URL: 'jdbc:mysql://db:3306/the_tribunal'
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://proxysql:6033/the_tribunal'
       SPRING_DATASOURCE_USERNAME: 'the_tribunal'
       SPRING_DATASOURCE_PASSWORD: 'patata123123'
       SERVICE_EMAIL: 'http://haproxy:3000'
@@ -19,7 +19,7 @@ services:
     environment:
       SPRING_JPA_HIBERNATE_DDL_AUTO: 'update'
       SPRING_JPA_DATABASE-PLATFORM: 'org.hibernate.dialect.MySQL8Dialect'
-      SPRING_DATASOURCE_URL: 'jdbc:mysql://db:3306/the_tribunal'
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://proxysql:6033/the_tribunal'
       SPRING_DATASOURCE_USERNAME: 'the_tribunal'
       SPRING_DATASOURCE_PASSWORD: 'patata123123'
       SERVICE_EMAIL: 'http://haproxy:3000'
@@ -41,7 +41,7 @@ services:
     environment:
       SPRING_JPA_HIBERNATE_DDL_AUTO: 'update'
       SPRING_JPA_DATABASE-PLATFORM: 'org.hibernate.dialect.MySQL8Dialect'
-      SPRING_DATASOURCE_URL: 'jdbc:mysql://db:3306/the_tribunal'
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://proxysql:6033/the_tribunal'
       SPRING_DATASOURCE_USERNAME: 'the_tribunal'
       SPRING_DATASOURCE_PASSWORD: 'patata123123'
   feed2:
@@ -51,7 +51,7 @@ services:
     environment:
       SPRING_JPA_HIBERNATE_DDL_AUTO: 'update'
       SPRING_JPA_DATABASE-PLATFORM: 'org.hibernate.dialect.MySQL8Dialect'
-      SPRING_DATASOURCE_URL: 'jdbc:mysql://db:3306/the_tribunal'
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://proxysql:6033/the_tribunal'
       SPRING_DATASOURCE_USERNAME: 'the_tribunal'
       SPRING_DATASOURCE_PASSWORD: 'patata123123'
   haproxy:
@@ -63,11 +63,43 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0
     volumes:
       - ./haproxy:/usr/local/etc/haproxy
+
   db:
-    image: mysql
+    image: mysql:5.7
     environment:
       MYSQL_DATABASE: 'the_tribunal'
       MYSQL_USER: 'the_tribunal'
       MYSQL_PASSWORD: 'patata123123'
       MYSQL_ROOT_HOST: '%'
       MYSQL_ROOT_PASSWORD: 'patataroot123123'
+    volumes:
+      - ./mysql/master/my.cnf:/etc/mysql/my.cnf
+      - ./mysql/master/data:/var/lib/mysql
+      - ./mysql/master/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 3307:3306
+
+  dbSlave:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: 'the_tribunal'
+      MYSQL_USER: 'the_tribunal'
+      MYSQL_PASSWORD: 'patata123123'
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: 'patataroot123123'
+    volumes:
+      - ./mysql/slave/my.cnf:/etc/mysql/my.cnf
+      - ./mysql/slave/data:/var/lib/mysql
+      - ./mysql/slave/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 3308:3306
+    depends_on:
+      - db
+  proxysql:
+    image: proxysql/proxysql:2.0.12
+    volumes:
+      - ./proxysql/proxysql.cnf:/etc/proxysql.cnf
+      - ./proxysql/data:/var/lib/proxysql
+    depends_on:
+      - db
+      - dbSlave
