@@ -63,11 +63,45 @@ services:
       - net.ipv4.ip_unprivileged_port_start=0
     volumes:
       - ./haproxy:/usr/local/etc/haproxy
+
   db:
-    image: mysql
+    image: mysql:5.7
     environment:
       MYSQL_DATABASE: 'the_tribunal'
       MYSQL_USER: 'the_tribunal'
       MYSQL_PASSWORD: 'patata123123'
       MYSQL_ROOT_HOST: '%'
       MYSQL_ROOT_PASSWORD: 'patataroot123123'
+    volumes:
+      - ./mysql/master/my.cnf:/etc/mysql/my.cnf
+      - ./mysql/master/data:/var/lib/mysql
+      - ./mysql/master/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 3306:3306
+    networks:
+      - mysql_cluster_net
+
+  dbSlave:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: 'the_tribunal'
+      MYSQL_USER: 'the_tribunal'
+      MYSQL_PASSWORD: 'patata123123'
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: 'patataroot123123'
+    volumes:
+      - ./mysql/slave/my.cnf:/etc/mysql/my.cnf
+      - ./mysql/slave/data/slave:/var/lib/mysql
+      - ./mysql/slave/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 3307:3306
+    depends_on:
+      - db
+    networks:
+      - mysql_cluster_net
+
+
+
+networks:
+  mysql_cluster_net:
+    driver: bridge
