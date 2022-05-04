@@ -1,6 +1,7 @@
 package io.github.nationalaudience.thetribunal.services;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -20,6 +21,7 @@ public class FeedService {
     @Value("${service.feed}")
     private String service;
 
+    @Cacheable("feed")
     public List<FeedResponse> getFeedFromInternalService(String loggedUser) throws URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
 

@@ -34,11 +34,12 @@ public class DataBaseUsage implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        //var rafa = userRepository.findByUsername("rafa2").orElseThrow();
+        var rafa = userRepository.findByUsername("javi").orElseThrow();
         //var pepe = userRepository.findByUsername("pepe1").orElseThrow();
         //Hibernate.initialize(rafa);
+        rafa.setAdmin(true);
         //rafa.getUsersFollow().add(pepe);
-        //userRepository.save(rafa);
+        userRepository.save(rafa);
         //userRepository.save(pepe);
 
         //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA");
