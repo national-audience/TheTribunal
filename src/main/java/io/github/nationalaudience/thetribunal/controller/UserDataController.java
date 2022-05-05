@@ -6,6 +6,7 @@ import io.github.nationalaudience.thetribunal.repository.UserRepository;
 import io.github.nationalaudience.thetribunal.services.EmailService;
 import io.github.nationalaudience.thetribunal.util.ReviewUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,6 +59,7 @@ public class UserDataController {
     }
 
     @PostMapping(END_POINT_FOLLOW_USER_DATA + "/{inUsername}")
+    @CacheEvict(value="feed", allEntries = true)
     public String newFollowerUserData(Model model, @PathVariable(PARAMETER_USER) String inUsername) throws URISyntaxException {
         var optional = userRepository.findByUsername(inUsername);
 
@@ -105,6 +107,7 @@ public class UserDataController {
     }
 
     @PostMapping(END_POINT_UNFOLLOW_USER_DATA + "/{inUsername}")
+    @CacheEvict(value="feed", allEntries = true)
     public String unfollowUserData(Model model, @PathVariable(PARAMETER_USER) String inUsername) {
         var optional = userRepository.findByUsername(inUsername);
 
