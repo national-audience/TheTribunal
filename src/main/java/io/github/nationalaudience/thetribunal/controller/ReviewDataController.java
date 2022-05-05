@@ -8,6 +8,7 @@ import io.github.nationalaudience.thetribunal.entity.User;
 import io.github.nationalaudience.thetribunal.repository.GameRepository;
 import io.github.nationalaudience.thetribunal.repository.ReviewRepository;
 import io.github.nationalaudience.thetribunal.repository.UserRepository;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +41,7 @@ public class ReviewDataController {
     }
 
     @PostMapping(END_POINT_POST_NEW_REVIEW_TO_DB)
+    @CacheEvict(value="feed", allEntries = true)
     public String postNewReviewToDb(
             Model model,
             HttpSession session,
@@ -99,6 +101,7 @@ public class ReviewDataController {
     }
 
     @PostMapping(END_POINT_DELETE_REVIEW_TO_DB)
+    @CacheEvict(value="feed", allEntries = true)
     public String deleteReview(
             Model model,
             @RequestParam(PARAMETER_USER_NAME) String userName,
