@@ -2,6 +2,10 @@
 
 Videogame Rating System
 
+## Video (Spanish)
+
+[![The Tribunal](http://img.youtube.com/vi/gmB2vVsyQ1E/0.jpg)](https://www.youtube.com/watch?v=gmB2vVsyQ1E&ab_channel=GaelRial)
+
 ## About
 
 The Tribunal is a Videogame Rating System. Users can rate a game once they have finished a game. Users and guests can
