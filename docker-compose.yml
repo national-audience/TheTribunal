@@ -76,9 +76,6 @@ services:
       - ./mysql/master/my.cnf:/etc/mysql/my.cnf
       - ./mysql/master/data:/var/lib/mysql
       - ./mysql/master/init.sql:/docker-entrypoint-initdb.d/init.sql
-    ports:
-      - 3307:3306
-
   dbSlave:
     image: mysql:5.7
     environment:
@@ -91,8 +88,6 @@ services:
       - ./mysql/slave/my.cnf:/etc/mysql/my.cnf
       - ./mysql/slave/data:/var/lib/mysql
       - ./mysql/slave/init.sql:/docker-entrypoint-initdb.d/init.sql
-    ports:
-      - 3308:3306
     depends_on:
       - db
   proxysql:
